@@ -2,6 +2,11 @@ import { SIGNATURE_DISHES } from "@/lib/menu";
 
 export const BRAND_LOGO_SRC = "/assets/logo-alwalima.png";
 
+/** LCP + header — only these block the home loader */
+export const HERO_IMAGE_SRC = "/assets/hero-facade.png";
+
+export const HOME_CRITICAL_PRELOAD: string[] = [BRAND_LOGO_SRC, HERO_IMAGE_SRC];
+
 export const GALLERY_ASSET_PATHS = [
   "/assets/gallery-table-spread.avif",
   "/assets/gallery-tajine-prunes.avif",
@@ -20,10 +25,8 @@ export const GALLERY_ASSET_PATHS = [
 
 const SIGNATURE_PATHS = Object.values(SIGNATURE_DISHES).map((d) => d.image);
 
-/** Critical above-the-fold and carousel assets for the home page */
-export const HOME_PRELOAD_ASSETS: string[] = [
-  BRAND_LOGO_SRC,
-  "/assets/hero-facade.png",
+/** Below-the-fold — do not delay first paint */
+export const HOME_DEFERRED_PRELOAD: string[] = [
   "/assets/reservation-riad.jpg",
   ...SIGNATURE_PATHS,
   ...GALLERY_ASSET_PATHS,

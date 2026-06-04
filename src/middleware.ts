@@ -20,9 +20,10 @@ export function middleware(request: NextRequest) {
 
   const url = request.nextUrl.clone();
   url.pathname = `/${defaultLocale}${pathname === "/" ? "" : pathname}`;
-  return NextResponse.redirect(url);
+  /* Rewrite avoids an extra 302 round-trip (Lighthouse “document redirect”). */
+  return NextResponse.rewrite(url);
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|assets).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|assets|opengraph-image|twitter-image|icon|apple-icon).*)"],
 };

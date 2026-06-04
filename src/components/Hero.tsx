@@ -20,8 +20,10 @@ export function Hero() {
               src="/assets/hero-facade.png"
               alt={h.imageAlt}
               fill
-              sizes="100vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1200px"
               priority
+              fetchPriority="high"
+              quality={75}
               className="object-cover object-[center_18%] sm:object-[center_20%] lg:object-[center_22%]"
               style={{
                 filter: "brightness(1.03) contrast(1.04) saturate(1.06) sepia(0.06) hue-rotate(-4deg)",

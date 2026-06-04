@@ -1,0 +1,5 @@
+# Modern browsers only — smaller JS bundles (see next.config webpack alias for framework polyfills)
+chrome >= 111
+edge >= 111
+firefox >= 111
+safari >= 16.4

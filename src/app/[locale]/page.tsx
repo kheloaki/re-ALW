@@ -1,5 +1,7 @@
+import { preload } from "react-dom";
 import { ExperienceGallery } from "@/components/ExperienceGallery";
 import { HomePageShell } from "@/components/HomePageShell";
+import { HERO_IMAGE_SRC } from "@/lib/homePreloadAssets";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { MoroccanDivider } from "@/components/MoroccanDivider";
@@ -16,7 +18,6 @@ import { getDictionary } from "@/i18n/get-dictionary";
 import { FOOTER_SEO_KEYWORDS } from "@/lib/footerSeo";
 import { getLocalSeoKeywords } from "@/lib/seo/local";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { getReelVideos } from "@/lib/reels";
 import { getHomePageSchemas } from "@/lib/seo/schema";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -44,12 +45,10 @@ export default async function HomePage({ params }: PageProps) {
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const dict = await getDictionary(locale);
-  const reelPosterUrls = getReelVideos()
-    .map((r) => r.poster)
-    .filter((url): url is string => Boolean(url));
+  preload(HERO_IMAGE_SRC, { as: "image", fetchPriority: "high" });
 
   return (
-    <HomePageShell reelPosterUrls={reelPosterUrls}>
+    <HomePageShell>
       <div className="site-shell main-wrapper">
         <JsonLd data={getHomePageSchemas(locale, dict.meta.title, dict.meta.description)} />
         <Navbar />

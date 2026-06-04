@@ -13,18 +13,21 @@ import { getSiteUrl } from "@/lib/site";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-playfair",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   subsets: ["latin"],
+  display: "swap",
 });
 
 const dividerScript = Dancing_Script({
   variable: "--font-divider-script",
   weight: ["700"],
   subsets: ["latin"],
+  display: "swap",
 });
 
 /** Arabic hero & display — Cormorant has no Arabic glyphs */
@@ -70,13 +73,17 @@ export default async function LocaleLayout({
   const dict = await getDictionary(locale);
   const placeLocal = getPlaceLocalSeo(locale);
   const dir = locale === "ar" ? "rtl" : "ltr";
+  const fontVars =
+    locale === "ar"
+      ? `${inter.variable} ${cormorant.variable} ${dividerScript.variable} ${amiri.variable} ${notoNaskhArabic.variable}`
+      : `${inter.variable} ${cormorant.variable} ${dividerScript.variable}`;
 
   return (
     <html
       lang={locale}
       dir={dir}
       suppressHydrationWarning
-      className={`${inter.variable} ${cormorant.variable} ${dividerScript.variable} ${amiri.variable} ${notoNaskhArabic.variable} h-full scroll-smooth antialiased`}
+      className={`${fontVars} h-full scroll-smooth antialiased`}
     >
       <body
         suppressHydrationWarning

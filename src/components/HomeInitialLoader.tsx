@@ -7,8 +7,8 @@ import {
   preloadHomeAssets,
 } from "@/lib/homePreloadAssets";
 
-const MIN_VISIBLE_MS = 750;
-const MAX_WAIT_MS = 9000;
+const MIN_VISIBLE_MS = 400;
+const MAX_WAIT_MS = 5000;
 const FADE_MS = 450;
 
 type Phase = "loading" | "exiting" | "hidden";
