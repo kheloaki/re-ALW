@@ -1,0 +1,94 @@
+import type { Metadata, Viewport } from "next";
+import { Amiri, Cormorant_Garamond, Dancing_Script, Inter, Noto_Naskh_Arabic } from "next/font/google";
+import { notFound } from "next/navigation";
+import { LocaleProvider } from "@/components/LocaleProvider";
+import { CallStickyButton } from "@/components/CallStickyButton";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { defaultLocale, isLocale, locales, type Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/get-dictionary";
+import { getPlaceLocalSeo } from "@/lib/googlePlaceLocal";
+import { getGlobalSchemas } from "@/lib/seo/schema";
+import { getSiteUrl } from "@/lib/site";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const cormorant = Cormorant_Garamond({
+  variable: "--font-playfair",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+
+const dividerScript = Dancing_Script({
+  variable: "--font-divider-script",
+  weight: ["700"],
+  subsets: ["latin"],
+});
+
+/** Arabic hero & display — Cormorant has no Arabic glyphs */
+const amiri = Amiri({
+  variable: "--font-arabic-display",
+  weight: ["400", "700"],
+  subsets: ["arabic"],
+  display: "swap",
+});
+
+const notoNaskhArabic = Noto_Naskh_Arabic({
+  variable: "--font-arabic-body",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["arabic"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#141210",
+};
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: Readonly<{
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}>) {
+  const { locale: raw } = await params;
+  if (!isLocale(raw)) notFound();
+
+  const locale = raw as Locale;
+  const dict = await getDictionary(locale);
+  const placeLocal = getPlaceLocalSeo(locale);
+  const dir = locale === "ar" ? "rtl" : "ltr";
+
+  return (
+    <html
+      lang={locale}
+      dir={dir}
+      suppressHydrationWarning
+      className={`${inter.variable} ${cormorant.variable} ${dividerScript.variable} ${amiri.variable} ${notoNaskhArabic.variable} h-full scroll-smooth antialiased`}
+    >
+      <body
+        suppressHydrationWarning
+        className="flex min-h-full flex-col overflow-x-hidden"
+      >
+        {/* JSON-LD in body — avoids head scripts rewritten by browser extensions before hydrate */}
+        <JsonLd data={getGlobalSchemas(locale, placeLocal)} />
+        <LocaleProvider locale={locale} dict={dict}>
+          {children}
+          <CallStickyButton />
+        </LocaleProvider>
+      </body>
+    </html>
+  );
+}
