@@ -37,5 +37,5 @@ export const SITE = {
   facebookUrl: process.env.NEXT_PUBLIC_FACEBOOK_URL?.trim() ?? "",
   /** 1200×630 crop of hero — link previews (WhatsApp, Facebook, etc.) */
   defaultOgImage: "/assets/og-share.jpg",
-  logo: "/assets/logo-alwalima.png",
+  logo: "/assets/logo-alwalima.avif",
 } as const;

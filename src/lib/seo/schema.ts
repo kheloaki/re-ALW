@@ -91,7 +91,7 @@ export function buildRestaurantSchema(locale: Locale, place?: PlaceLocalSeoData)
     telephone: LOCAL.phoneTel,
     image: [
       abs(SITE.defaultOgImage),
-      abs("/assets/hero-facade.png"),
+      abs("/assets/hero-facade.avif"),
       abs("/assets/gallery-table-spread.avif"),
       abs("/assets/gallery-tajine-chicken.avif"),
     ],

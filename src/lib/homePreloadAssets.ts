@@ -1,9 +1,9 @@
 import { SIGNATURE_DISHES } from "@/lib/menu";
 
-export const BRAND_LOGO_SRC = "/assets/logo-alwalima.png";
+export const BRAND_LOGO_SRC = "/assets/logo-alwalima.avif";
 
 /** LCP + header — only these block the home loader */
-export const HERO_IMAGE_SRC = "/assets/hero-facade.png";
+export const HERO_IMAGE_SRC = "/assets/hero-facade.avif";
 
 export const HOME_CRITICAL_PRELOAD: string[] = [BRAND_LOGO_SRC, HERO_IMAGE_SRC];
 
@@ -27,7 +27,7 @@ const SIGNATURE_PATHS = Object.values(SIGNATURE_DISHES).map((d) => d.image);
 
 /** Below-the-fold — do not delay first paint */
 export const HOME_DEFERRED_PRELOAD: string[] = [
-  "/assets/reservation-riad.jpg",
+  "/assets/reservation-riad.avif",
   ...SIGNATURE_PATHS,
   ...GALLERY_ASSET_PATHS,
 ];

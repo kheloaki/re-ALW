@@ -17,7 +17,7 @@ export function Hero() {
         <div className="pointer-events-none absolute inset-0 lg:inset-x-0 lg:bottom-0 lg:top-[100px]">
           <div className="relative h-full w-full">
             <Image
-              src="/assets/hero-facade.png"
+              src="/assets/hero-facade.avif"
               alt={h.imageAlt}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1200px"

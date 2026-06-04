@@ -33,7 +33,7 @@ export async function ReservationExperience({ locale, variant = "embed" }: Reser
       className={sectionClass}
       style={{
         backgroundImage:
-          "linear-gradient(165deg, rgba(38,30,24,0.58) 0%, rgba(28,22,18,0.45) 42%, rgba(32,26,20,0.72) 100%), url('/assets/reservation-riad.jpg')",
+          "linear-gradient(165deg, rgba(38,30,24,0.58) 0%, rgba(28,22,18,0.45) 42%, rgba(32,26,20,0.72) 100%), url('/assets/reservation-riad.avif')",
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundAttachment: isPage ? "fixed" : "scroll",

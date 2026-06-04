@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useLocale } from "@/components/LocaleProvider";
 
-const LOGO_SRC = "/assets/logo-alwalima.png";
+const LOGO_SRC = "/assets/logo-alwalima.avif";
 
 type BrandLogoProps = {
   href?: string;
