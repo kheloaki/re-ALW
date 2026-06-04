@@ -11,7 +11,7 @@ npm run dev
 
 ## Scripts
 
-- `npm run dev` — développement
+- `npm run dev`  — développement
 - `npm run build` / `npm run start` — production
 - `npm run lint`
 
