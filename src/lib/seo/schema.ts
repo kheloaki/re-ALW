@@ -89,7 +89,12 @@ export function buildRestaurantSchema(locale: Locale, place?: PlaceLocalSeoData)
     description: `${geo.servesCuisine} à ${geo.city} — ${geo.neighborhood}, ${geo.region}.`,
     url,
     telephone: LOCAL.phoneTel,
-    image: [abs(SITE.defaultOgImage), abs("/assets/gallery-table-spread.avif"), abs("/assets/gallery-tajine-chicken.avif")],
+    image: [
+      abs(SITE.defaultOgImage),
+      abs("/assets/hero-facade.png"),
+      abs("/assets/gallery-table-spread.avif"),
+      abs("/assets/gallery-tajine-chicken.avif"),
+    ],
     logo: abs(SITE.logo),
     priceRange: geo.priceRange,
     servesCuisine: ["Moroccan", "Mediterranean", "North African"],

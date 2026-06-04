@@ -12,6 +12,7 @@ export const SITE = {
   /** Compte Google Business / réseaux — à compléter */
   instagramUrl: process.env.NEXT_PUBLIC_INSTAGRAM_URL?.trim() ?? "",
   facebookUrl: process.env.NEXT_PUBLIC_FACEBOOK_URL?.trim() ?? "",
-  defaultOgImage: "/assets/hero-facade.png",
+  /** 1200×630 crop of hero — link previews (WhatsApp, Facebook, etc.) */
+  defaultOgImage: "/assets/og-share.jpg",
   logo: "/assets/logo-alwalima.png",
 } as const;
