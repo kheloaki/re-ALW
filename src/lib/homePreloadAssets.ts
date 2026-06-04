@@ -2,10 +2,7 @@ import { SIGNATURE_DISHES } from "@/lib/menu";
 
 export const BRAND_LOGO_SRC = "/assets/logo-alwalima.avif";
 
-/** LCP + header — only these block the home loader */
 export const HERO_IMAGE_SRC = "/assets/hero-facade.avif";
-
-export const HOME_CRITICAL_PRELOAD: string[] = [BRAND_LOGO_SRC, HERO_IMAGE_SRC];
 
 export const GALLERY_ASSET_PATHS = [
   "/assets/gallery-table-spread.avif",
@@ -25,8 +22,10 @@ export const GALLERY_ASSET_PATHS = [
 
 const SIGNATURE_PATHS = Object.values(SIGNATURE_DISHES).map((d) => d.image);
 
-/** Below-the-fold — do not delay first paint */
-export const HOME_DEFERRED_PRELOAD: string[] = [
+/** All home media — loader waits for these before revealing the page */
+export const HOME_PRELOAD_ASSETS: string[] = [
+  BRAND_LOGO_SRC,
+  HERO_IMAGE_SRC,
   "/assets/reservation-riad.avif",
   ...SIGNATURE_PATHS,
   ...GALLERY_ASSET_PATHS,
@@ -45,6 +44,29 @@ export function preloadImage(src: string): Promise<void> {
 }
 
 export function preloadHomeAssets(urls: string[]): Promise<void> {
+  return preloadHomeAssetsWithProgress(urls);
+}
+
+/** Preload images and report 0–100 progress (one step per asset). */
+export function preloadHomeAssetsWithProgress(
+  urls: string[],
+  onProgress?: (percent: number) => void,
+): Promise<void> {
   const unique = [...new Set(urls)];
-  return Promise.all(unique.map(preloadImage)).then(() => undefined);
+  const total = unique.length;
+
+  if (total === 0) {
+    onProgress?.(100);
+    return Promise.resolve();
+  }
+
+  let loaded = 0;
+  const report = () => {
+    loaded += 1;
+    onProgress?.(Math.min(100, Math.round((loaded / total) * 100)));
+  };
+
+  return Promise.all(unique.map((src) => preloadImage(src).then(report))).then(() => {
+    onProgress?.(100);
+  });
 }
