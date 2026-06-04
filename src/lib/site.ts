@@ -1,8 +1,31 @@
-/** URL publique du site (sans slash final). */
+/** Canonical production domain (SEO, sitemap, Open Graph). */
+export const PRODUCTION_SITE_URL = "https://www.restaurantalwalima.com";
+
+function normalizeSiteUrl(url: string): string {
+  const trimmed = url.trim().replace(/\/$/, "");
+  if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) return trimmed;
+  return `https://${trimmed}`;
+}
+
+/**
+ * Public site URL for canonical, metadataBase, sitemap, etc.
+ * Never uses Vercel preview deployment URLs in production.
+ */
 export function getSiteUrl(): string {
-  const url = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-  if (url) return url.replace(/\/$/, "");
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (fromEnv) return normalizeSiteUrl(fromEnv);
+
+  if (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL?.trim()) {
+    return `https://${process.env.VERCEL_URL.trim()}`;
+  }
+
+  const vercelProduction = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  if (vercelProduction) return normalizeSiteUrl(vercelProduction);
+
+  if (process.env.NODE_ENV === "production" || process.env.VERCEL_ENV === "production") {
+    return PRODUCTION_SITE_URL;
+  }
+
   return "http://localhost:3000";
 }
 
