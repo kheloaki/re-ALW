@@ -3,6 +3,7 @@ import { Amiri, Cormorant_Garamond, Dancing_Script, Inter, Noto_Naskh_Arabic } f
 import { notFound } from "next/navigation";
 import { LocaleProvider } from "@/components/LocaleProvider";
 import { CallStickyButton } from "@/components/CallStickyButton";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { defaultLocale, isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -92,6 +93,7 @@ export default async function LocaleLayout({
         {/* JSON-LD in body — avoids head scripts rewritten by browser extensions before hydrate */}
         <JsonLd data={getGlobalSchemas(locale, placeLocal)} />
         <LocaleProvider locale={locale} dict={dict}>
+          <SmoothScroll />
           {children}
           <CallStickyButton />
         </LocaleProvider>

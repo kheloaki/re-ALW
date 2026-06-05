@@ -30,6 +30,21 @@ html[lang="ar"] {
   --font-serif: var(--font-heading);
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+[id] {
+  scroll-margin-top: 5.5rem;
+}
+
 body {
   background: #1c1612;
   color: var(--text-light);
