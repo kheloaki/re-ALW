@@ -26,50 +26,68 @@ function escapeXml(value) {
     .replace(/'/g, "&apos;");
 }
 
-function buildSitemapXml() {
-  const base = getBaseUrl();
-  const lastMod = new Date().toISOString().slice(0, 10);
+function buildLocalePagesSitemap(base, locale, lastMod) {
+  const alternates = (path) => [
+    { hreflang: "x-default", href: `${base}${localePath(DEFAULT_LOCALE, path)}` },
+    ...LOCALES.map((code) => ({
+      hreflang: code,
+      href: `${base}${localePath(code, path)}`,
+    })),
+  ];
 
-  const urls = [];
-
-  for (const path of ROUTES) {
-    const alternates = [
-      { hreflang: "x-default", href: `${base}${localePath(DEFAULT_LOCALE, path)}` },
-      ...LOCALES.map((locale) => ({
-        hreflang: locale,
-        href: `${base}${localePath(locale, path)}`,
-      })),
-    ];
-
-    const alternateLinks = alternates
+  const urls = ROUTES.map((path) => {
+    const loc = `${base}${localePath(locale, path)}`;
+    const priority = path === "/" ? "1.0" : "0.9";
+    const alternateLinks = alternates(path)
       .map(
         (alt) =>
           `    <xhtml:link rel="alternate" hreflang="${escapeXml(alt.hreflang)}" href="${escapeXml(alt.href)}" />`,
       )
       .join("\n");
 
-    for (const locale of LOCALES) {
-      const loc = `${base}${localePath(locale, path)}`;
-      const priority = path === "/" ? "1.0" : "0.9";
-
-      urls.push(`  <url>
+    return `  <url>
     <loc>${escapeXml(loc)}</loc>
     <lastmod>${lastMod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${priority}</priority>
 ${alternateLinks}
-  </url>`);
-    }
-  }
+  </url>`;
+  }).join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${urls.join("\n")}
+${urls}
 </urlset>
 `;
 }
 
-const outputPath = resolve(process.cwd(), "public/sitemap.xml");
-const xml = buildSitemapXml();
-writeFileSync(outputPath, xml, "utf8");
-console.log(`Wrote ${outputPath} (${LOCALES.length * ROUTES.length} URLs)`);
+function buildSitemapIndex(base, lastMod) {
+  const entries = LOCALES.map((locale) => {
+    const loc = `${base}/sitemap-pages-${locale}.xml`;
+    return `  <sitemap>
+    <loc>${escapeXml(loc)}</loc>
+    <lastmod>${lastMod}</lastmod>
+  </sitemap>`;
+  }).join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries}
+</sitemapindex>
+`;
+}
+
+const publicDir = resolve(process.cwd(), "public");
+const base = getBaseUrl();
+const lastMod = new Date().toISOString();
+
+writeFileSync(resolve(publicDir, "sitemap.xml"), buildSitemapIndex(base, lastMod), "utf8");
+
+for (const locale of LOCALES) {
+  const filename = `sitemap-pages-${locale}.xml`;
+  writeFileSync(resolve(publicDir, filename), buildLocalePagesSitemap(base, locale, lastMod), "utf8");
+}
+
+console.log(
+  `Wrote sitemap.xml (index) + ${LOCALES.length} locale sitemaps (${LOCALES.length * ROUTES.length} URLs total)`,
+);
