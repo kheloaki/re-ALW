@@ -106,6 +106,7 @@ function buildEmailContent(data: ReservationPayload) {
   const subjectByLocale: Record<Locale, string> = {
     fr: `Nouvelle réservation — ${data.name} — ${data.date}`,
     en: `New reservation — ${data.name} — ${data.date}`,
+    es: `Nueva reserva — ${data.name} — ${data.date}`,
     ar: `حجز جديد — ${data.name} — ${data.date}`,
     de: `Neue Reservierung — ${data.name} — ${data.date}`,
     pl: `Nowa rezerwacja — ${data.name} — ${data.date}`,

@@ -23,6 +23,13 @@ const MAP_COPY: Record<Locale, LocalMapCopy> = {
     reviewOnGoogle: "Leave a review on Google",
     viewOnGoogle: "View on Google Maps",
   },
+  es: {
+    localIntro:
+      "Al Walima es un restaurante marroquí en Agadir, en Jardin Lalla Meryem (Rue de Marrakech). Ideal para almuerzo, cena y reservas de grupo — a pocos minutos del centro, Talborjt y la playa.",
+    areasTitle: "También recibimos clientes de",
+    reviewOnGoogle: "Dejar una opinión en Google",
+    viewOnGoogle: "Ver en Google Maps",
+  },
   ar: {
     localIntro:
       "الوليمة مطعم مغربي في أكادير بحي حديقة للا مريم (شارع مراكش). مثالي للغداء والعشاء وحجوزات المجموعات — قريب من وسط المدينة وطلبرجت والكورنيش.",
@@ -67,6 +74,16 @@ export function getLocalSeoKeywords(locale: Locale): string[] {
       "couscous Agadir",
       "book table Agadir",
       "restaurant near me Agadir",
+    ];
+  }
+  if (locale === "es") {
+    return [
+      "restaurante marroquí Agadir",
+      `restaurante Agadir ${LOCAL.neighborhood}`,
+      "tajine Agadir",
+      "cuscús Agadir",
+      "reservar mesa Agadir",
+      "restaurante cerca de mí Agadir",
     ];
   }
   if (locale === "ar") {

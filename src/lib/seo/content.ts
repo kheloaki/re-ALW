@@ -59,6 +59,53 @@ const FAQ: Record<Locale, SeoFaqItem[]> = {
         "Al Walima est une adresse locale pour la cuisine marocaine authentique (tajines, couscous du vendredi, grillades) au Jardin Lalla Meryem. Réservation : +212 6 27 71 15 14.",
     },
   ],
+  es: [
+    {
+      question: "¿Dónde está el restaurante Al Walima en Agadir?",
+      answer:
+        "Al Walima está en Jardin Lalla Meryem, Bloque 1, Rue de Marrakech, Agadir, Marruecos. Indicaciones en Google Maps o llame al +212 6 27 71 15 14.",
+    },
+    {
+      question: "¿Qué cocina ofrece Al Walima?",
+      answer:
+        "Al Walima es un restaurante marroquí en Agadir con tajines, cuscús los viernes, parrilladas, pastela, ensaladas, pizzas, postres y té a la menta tradicional.",
+    },
+    {
+      question: "¿Cómo reservo una mesa en Al Walima?",
+      answer:
+        "Reserve por teléfono al +212 6 27 71 15 14 o con el formulario de reserva del sitio web. Recomendamos reservar con antelación los fines de semana y por la noche.",
+    },
+    {
+      question: "¿Se sirve cuscús todos los días?",
+      answer:
+        "El cuscús se prepara cada viernes. El resto de días la carta incluye tajines, parrilladas y otros platos marroquíes.",
+    },
+    {
+      question: "¿Cuáles son los platos estrella de Al Walima?",
+      answer:
+        "Entre nuestras especialidades: tajine de pollo marroquí, cuscús real, parrillada mixta Al Walima y té marroquí. Consulte la carta completa en línea.",
+    },
+    {
+      question: "¿Los precios están en dirhams?",
+      answer:
+        "Sí, todos los precios de la carta están en dirhams marroquíes (DH), desde 15 DH en entrantes hasta platos premium y formatos familiares.",
+    },
+    {
+      question: "¿Al Walima es adecuado para familias y grupos?",
+      answer:
+        "Sí. Recibimos familias, parejas y grupos en un entorno elegante en el corazón de Agadir. Contáctenos para reservas de grupo.",
+    },
+    {
+      question: "¿Cómo llegar desde el centro de Agadir o la playa?",
+      answer:
+        "Estamos en Jardin Lalla Meryem, Rue de Marrakech — en coche o taxi desde el centro, Talborjt, Founty y la cornisa. Use «Cómo llegar» en esta página o Google Maps.",
+    },
+    {
+      question: "¿Restaurante marroquí cerca de Lalla Meryem, Agadir?",
+      answer:
+        "Al Walima ofrece cocina marroquí auténtica (tajines, cuscús del viernes, parrilladas) en Jardin Lalla Meryem. Reserva: +212 6 27 71 15 14.",
+    },
+  ],
   en: [
     {
       question: "Where is Al Walima restaurant located in Agadir?",
@@ -249,6 +296,14 @@ const GEO: Record<Locale, SeoGeoProfile> = {
     servesCuisine: "Moroccan cuisine",
     priceRange: "€€",
   },
+  es: {
+    region: "Souss-Massa",
+    city: "Agadir",
+    country: "Marruecos",
+    neighborhood: "Jardin Lalla Meryem",
+    servesCuisine: "Cocina marroquí",
+    priceRange: "€€",
+  },
   ar: {
     region: "سوس ماسة",
     city: "أكادير",
@@ -278,6 +333,7 @@ const GEO: Record<Locale, SeoGeoProfile> = {
 const SEO_UI: Record<Locale, { faqTitle: string; faqSubtitle: string }> = {
   fr: { faqTitle: "Questions fréquentes", faqSubtitle: "Tout savoir avant votre visite à Agadir" },
   en: { faqTitle: "Frequently asked questions", faqSubtitle: "Everything you need before visiting us in Agadir" },
+  es: { faqTitle: "Preguntas frecuentes", faqSubtitle: "Todo lo que necesita saber antes de visitarnos en Agadir" },
   ar: { faqTitle: "أسئلة شائعة", faqSubtitle: "معلومات قبل زيارتكم في أكادير" },
   pl: { faqTitle: "Często zadawane pytania", faqSubtitle: "Przed wizytą w Agadirze" },
   de: { faqTitle: "Häufige Fragen", faqSubtitle: "Vor Ihrem Besuch in Agadir" },

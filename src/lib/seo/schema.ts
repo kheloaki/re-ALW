@@ -21,6 +21,7 @@ function localeAbs(locale: Locale, path: string): string {
 const MENU_PAGE_TITLE: Record<Locale, string> = {
   fr: "Carte",
   en: "Menu",
+  es: "Carta",
   ar: "قائمة الطعام",
   pl: "Menu",
   de: "Speisekarte",

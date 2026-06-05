@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Amiri, Cormorant_Garamond, Dancing_Script, Inter, Noto_Naskh_Arabic } from "next/font/google";
 import { notFound } from "next/navigation";
 import { LocaleProvider } from "@/components/LocaleProvider";
@@ -97,6 +98,7 @@ export default async function LocaleLayout({
           {children}
           <CallStickyButton />
         </LocaleProvider>
+        <Analytics />
       </body>
     </html>
   );

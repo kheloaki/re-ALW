@@ -39,6 +39,13 @@ const DAY_NAME_TO_INDEX: Record<string, WeekdayKey> = {
   sunday: "sun",
   dimanche: "sun",
   dim: "sun",
+  lunes: "mon",
+  martes: "tue",
+  miercoles: "wed",
+  jueves: "thu",
+  viernes: "fri",
+  sabado: "sat",
+  domingo: "sun",
 };
 
 function normalizeDayToken(raw: string): string {

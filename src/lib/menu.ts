@@ -9,7 +9,7 @@ export type MenuItemLabels = Partial<Record<Locale, string>> & {
 /** Libellé principal selon la langue de la page */
 export function menuLabel(labels: MenuItemLabels, locale: Locale): string {
   if (labels[locale]) return labels[locale]!;
-  if (locale === "pl" || locale === "de") return labels.en;
+  if (locale === "pl" || locale === "de" || locale === "es") return labels.en;
   return labels.fr;
 }
 

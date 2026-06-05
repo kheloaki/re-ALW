@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { localeNames, localePath, locales, stripLocaleFromPathname, type Locale } from "@/i18n/config";
+import { LOCALE_COOKIE } from "@/i18n/detectLocale";
 import { useLocale } from "./LocaleProvider";
 
 type LanguageSwitcherProps = {
@@ -89,7 +90,10 @@ export function LanguageSwitcher({ variant = "footer" }: LanguageSwitcherProps) 
                 hrefLang={code}
                 title={localeNames[code as Locale]}
                 className="flex items-center justify-center px-3 py-2.5 text-[13px] font-semibold uppercase tracking-wide text-[#e8dcc8] transition hover:bg-[#3a3028] hover:text-[#faf3e3]"
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  document.cookie = `${LOCALE_COOKIE}=${code};path=/;max-age=${60 * 60 * 24 * 365};samesite=lax`;
+                  setOpen(false);
+                }}
               >
                 {localeCode(code)}
               </Link>

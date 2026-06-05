@@ -1,0 +1,201 @@
+import type { Dictionary } from "@/i18n/types";
+
+const es: Dictionary = {
+  meta: {
+    title: "Al Walima | Restaurante marroquí en Agadir",
+    description:
+      "Restaurante marroquí en Agadir. Tajines, cuscús real, té a la menta y reserva de mesa en Jardin Lalla Meryem.",
+  },
+  stickyCall: {
+    label: "Llamar al restaurante Al Walima",
+  },
+  nav: {
+    home: "Inicio",
+    menu: "Carta",
+    reservation: "Reserva",
+    gallery: "Galería",
+    reviews: "Opiniones",
+    contact: "Contacto",
+    bookTable: "Reservar mesa",
+    openMenu: "Abrir menú",
+    closeMenu: "Cerrar menú",
+    language: "Idioma",
+  },
+  hero: {
+    imageAlt: "Fachada del restaurante Al Walima de noche — letrero iluminado",
+    titleLine1: "Descubra",
+    titleLine2: "la auténtica cocina marroquí",
+    titleLine3: "en el corazón de Agadir",
+    subtitle:
+      "Tajines, cuscús, té a la menta y especialidades marroquíes preparadas con pasión. Una experiencia culinaria refinada en un entorno encantador.",
+    viewMenu: "Ver la carta",
+    bookNow: "Reservar ahora",
+  },
+  welcome: {
+    titleLine1: "Bienvenido",
+    titleLine2: "a Al Walima",
+    subtitle:
+      "Tajines, cuscús, té a la menta y especialidades marroquíes preparadas con pasión. Una experiencia gastronómica inolvidable en un entorno encantador.",
+    features: [
+      {
+        title: "Cocina\ntradicional",
+        description: "Recetas marroquíes transmitidas con autenticidad y refinamiento.",
+        icon: "⌂",
+      },
+      {
+        title: "Ambiente\ncálido",
+        description: "Un marco acogedor de arcos, faroles y elegancia oriental.",
+        icon: "✦",
+      },
+      {
+        title: "Servicio\natento",
+        description: "Hospitalidad refinada de un equipo apasionado.",
+        icon: "♡",
+      },
+    ],
+  },
+  signatures: {
+    title: "Platos estrella",
+    viewFullMenu: "VER CARTA COMPLETA",
+    dishes: {
+      tajine: {
+        title: "Tajine de pollo\nmarroquí",
+        description: "Pollo cocido a fuego lento con aceitunas del Atlas, limones confitados y especias tradicionales.",
+      },
+      couscous: {
+        title: "Cuscús real",
+        description: "Merguez, carne picada, ternera y pollo — servido los viernes.",
+      },
+      brochettes: {
+        title: "Parrillada mixta\nAl Walima",
+        description: "Selección de parrilladas de la casa a la brasa.",
+      },
+      tea: {
+        title: "Té marroquí",
+        description: "Té verde con menta fresca, servido a la manera tradicional.",
+      },
+    },
+  },
+  reviews: {
+    title: "Opiniones de Google",
+    subtitle: "Lo que dicen nuestros clientes de Al Walima",
+    fromGoogle: "Opiniones de",
+    googleLink: "Google",
+    disclaimer: "El contenido de las opiniones lo proporcionan los usuarios y puede actualizarse en Google Maps.",
+    reviewBy: "Opinión de Google de",
+  },
+  instagramReels: {
+    title: "Reels de Instagram",
+    subtitle: "Detrás de escena, platos y ambiente en Al Walima, Agadir.",
+    reelLabel: "Reel de Instagram",
+    followCta: "Seguir {handle}",
+    emptyTitle: "Reels próximamente",
+    emptyHint: "Síguenos en Instagram para ver nuestros últimos vídeos y el ambiente del restaurante.",
+  },
+  gallery: {
+    title: "La experiencia Al Walima",
+    alts: {
+      tea: "Té marroquí y café",
+      tajinePrunes: "Tajine con ciruelas y carne",
+      tableSpread: "Mesa con tajines y pan",
+      ambiance: "Comedor de Al Walima",
+      platter: "Bandeja de carnes con arroz al azafrán",
+      seffa: "Seffa marroquí tradicional",
+      rfissa: "Rfissa tradicional",
+      salad: "Ensalada fresca de atún",
+      instagram: "Al Walima en Instagram",
+      paella: "Paella de marisco en Al Walima",
+      teaPour: "Té a la menta marroquí siendo servido",
+      beetSalad: "Ensalada de remolacha con hierbas",
+      tagineBread: "Tajine con pan en la mesa",
+      pastilla: "Pastilla tradicional con marisco",
+    },
+  },
+  reservation: {
+    sectionTitle: "Reservar mi mesa",
+    cardTitle: "RESERVAR MI MESA",
+    name: "Nombre",
+    phone: "Teléfono",
+    date: "Fecha",
+    time: "Hora",
+    guests: "Número de personas",
+    message: "Mensaje (opcional)",
+    specialRequests: "Peticiones especiales",
+    submit: "ENVIAR SOLICITUD",
+    confirm: "CONFIRMAR RESERVA",
+    conciergeTitle: "Reserva telefónica",
+    conciergeText: "Para grupos o eventos privados, llámenos por teléfono.",
+    conciergeService: "Reserva\ntelefónica",
+    phoneBooking: "Llamar al restaurante",
+  },
+  reservationForm: {
+    sending: "Enviando…",
+    success: "¡Gracias! Su solicitud ha sido enviada. Le contactaremos pronto para confirmar su mesa.",
+    errorGeneric: "No pudimos enviar su solicitud. Inténtelo de nuevo o llame al restaurante.",
+    errorNetwork: "Error de conexión. Compruebe su red e inténtelo de nuevo.",
+    errorNotConfigured: "La reserva en línea aún no está activa. Llámenos para reservar.",
+    errorRateLimited: "Demasiados intentos. Espere un minuto e inténtelo de nuevo.",
+  },
+  map: {
+    title: "Cómo llegar",
+    joinTitle: "Visítenos",
+    subtitle: "Encuéntrenos en el corazón de Agadir. Abra las indicaciones en Google Maps.",
+    addressLabel: "Dirección",
+    phoneLabel: "Teléfono",
+    hoursLabel: "Horario",
+    hours: "Abierto todos los días · 12:00 – 00:00",
+    hoursTime: "12:00 – 00:00",
+    weekdays: {
+      mon: "Lunes",
+      tue: "Martes",
+      wed: "Miércoles",
+      thu: "Jueves",
+      fri: "Viernes",
+      sat: "Sábado",
+      sun: "Domingo",
+    },
+    directions: "CÓMO LLEGAR",
+    call: "LLAMAR",
+    directionsFromMe: "Indicaciones desde mi ubicación",
+    openInMaps: "Abrir en Google Maps",
+    mapIframeTitle: "Mapa",
+  },
+  reservationPage: {
+    metaTitle: "Reserva | Al Walima — Restaurante marroquí en Agadir",
+    metaDescription:
+      "Reserve su mesa en Al Walima, Agadir. Formulario de reserva en línea o por teléfono.",
+  },
+  menuPage: {
+    metaTitle: "Carta | Al Walima — Restaurante marroquí en Agadir",
+    metaDescription:
+      "Carta de Al Walima: entrantes, tajines, cuscús, parrilladas, pizzas, postres y bebidas en Agadir.",
+    eyebrow: "Restaurante Al Walima — Agadir",
+    title: "Nuestra carta",
+    intro: "Carta oficial. Cuscús cada viernes. Precios en dirhams (DH).",
+    priceNote: "Todos los precios en dirhams marroquíes (DH)",
+    categoriesNav: "Categorías",
+    scrollHint: "Desplácese o pulse una sección abajo",
+    dishColumn: "Plato",
+    priceColumn: "Precio",
+    signatureBadge: "Estrella",
+    bookTable: "Reservar mesa",
+    backHome: "Volver al inicio",
+  },
+  footer: {
+    brandText:
+      "Restaurante marroquí refinado: tajines, cuscús real y hospitalidad cálida en el corazón de Agadir.",
+    findUs: "Cómo llegar",
+    info: "Información",
+    call: "LLAMAR",
+    directions: "CÓMO LLEGAR",
+    seoTitle: "Cocina marroquí y restaurante en Agadir",
+    seoBlurb:
+      "Al Walima en Agadir ofrece cocina marroquí auténtica: tajines, cuscús real, parrilladas y té a la menta en Jardin Lalla Meryem.",
+    rights: "Todos los derechos reservados.",
+    developedBy: "Sitio web desarrollado por",
+    links: { menu: "Carta", reservations: "Reservas", reviews: "Opiniones", contact: "Contacto" },
+  },
+  divider: { line1: "Restaurant", line2: "Al Walima" },
+};
+
+export default es;

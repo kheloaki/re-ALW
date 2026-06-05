@@ -27,6 +27,15 @@ function localeUrl(locale: Locale, path: string): string {
   return absoluteUrl(localePath(locale, path));
 }
 
+const OPEN_GRAPH_LOCALE: Record<Locale, string> = {
+  fr: "fr_FR",
+  en: "en_US",
+  es: "es_ES",
+  ar: "ar_MA",
+  pl: "pl_PL",
+  de: "de_DE",
+};
+
 export function buildPageMetadata(input: PageSeoInput): Metadata {
   const {
     locale,
@@ -49,20 +58,11 @@ export function buildPageMetadata(input: PageSeoInput): Metadata {
     languages[l] = localeUrl(l, path);
   }
 
-  const openGraphLocale =
-    locale === "fr"
-      ? "fr_FR"
-      : locale === "en"
-        ? "en_US"
-        : locale === "ar"
-          ? "ar_MA"
-          : locale === "de"
-            ? "de_DE"
-            : "pl_PL";
+  const openGraphLocale = OPEN_GRAPH_LOCALE[locale];
 
-  const alternateLocales = locales.filter((l) => l !== locale).map((l) =>
-    l === "fr" ? "fr_FR" : l === "en" ? "en_US" : l === "ar" ? "ar_MA" : l === "de" ? "de_DE" : "pl_PL",
-  );
+  const alternateLocales = locales
+    .filter((l) => l !== locale)
+    .map((l) => OPEN_GRAPH_LOCALE[l]);
 
   const metadata: Metadata = {
     metadataBase: new URL(getSiteUrl()),
