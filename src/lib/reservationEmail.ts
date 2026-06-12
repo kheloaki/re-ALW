@@ -153,13 +153,23 @@ function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
+/** Comma- or semicolon-separated list in RESERVATION_OWNER_EMAIL. */
+export function parseOwnerEmails(raw: string | undefined): string[] {
+  if (!raw?.trim()) return [];
+  const emails = raw
+    .split(/[,;]+/)
+    .map((entry) => entry.trim())
+    .filter((entry) => entry.length > 0 && entry.includes("@"));
+  return [...new Set(emails)];
+}
+
 export async function sendReservationEmail(data: ReservationPayload): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY?.trim();
-  const to = process.env.RESERVATION_OWNER_EMAIL?.trim();
+  const to = parseOwnerEmails(process.env.RESERVATION_OWNER_EMAIL);
   const from =
     process.env.RESEND_FROM_EMAIL?.trim() || `Al Walima <onboarding@resend.dev>`;
 
-  if (!apiKey || !to) {
+  if (!apiKey || to.length === 0) {
     throw new Error("RESEND_NOT_CONFIGURED");
   }
 
@@ -168,7 +178,7 @@ export async function sendReservationEmail(data: ReservationPayload): Promise<vo
 
   const { error } = await resend.emails.send({
     from,
-    to: [to],
+    to,
     subject: `[Al Walima] ${subject}`,
     html,
     text,
