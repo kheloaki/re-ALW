@@ -14,22 +14,21 @@ type ReelsCarouselProps = {
 
 function ReelStrip({
   items,
-  posterOnly = false,
+  ariaHidden = false,
 }: {
   items: ReelCarouselItem[];
-  posterOnly?: boolean;
+  ariaHidden?: boolean;
 }) {
   return (
     <div
-      className={`instagram-reels-marquee__strip flex shrink-0 items-stretch gap-4 sm:gap-5${posterOnly ? " pointer-events-none" : ""}`}
-      aria-hidden={posterOnly || undefined}
+      className={`instagram-reels-marquee__strip flex shrink-0 items-stretch gap-4 sm:gap-5${ariaHidden ? " pointer-events-none" : ""}`}
+      aria-hidden={ariaHidden || undefined}
     >
       {items.map(({ reel, title }, index) => (
         <ReelVideoCard
-          key={`${reel.id}-${posterOnly ? "dup" : "a"}-${index}`}
+          key={`${reel.id}-${ariaHidden ? "dup" : "a"}-${index}`}
           reel={reel}
           title={title}
-          posterOnly={posterOnly}
         />
       ))}
     </div>
@@ -49,7 +48,7 @@ export function ReelsCarousel({ items }: ReelsCarouselProps) {
           style={{ animationDuration: `${durationSec}s` }}
         >
           <ReelStrip items={items} />
-          <ReelStrip items={items} posterOnly />
+          <ReelStrip items={items} ariaHidden />
         </div>
       </div>
     </div>
