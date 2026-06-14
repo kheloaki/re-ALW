@@ -80,3 +80,6 @@ yarn-error.log*
 .pnpm-debug.log*
 
 /coverage
+
+# Uncompressed reel backups (run npm run compress-reels)
+/public/assets/reels/originals/

@@ -153,13 +153,15 @@ function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 /** Comma- or semicolon-separated list in RESERVATION_OWNER_EMAIL. */
 export function parseOwnerEmails(raw: string | undefined): string[] {
   if (!raw?.trim()) return [];
   const emails = raw
     .split(/[,;]+/)
-    .map((entry) => entry.trim())
-    .filter((entry) => entry.length > 0 && entry.includes("@"));
+    .map((entry) => entry.trim().toLowerCase())
+    .filter((entry) => EMAIL_RE.test(entry));
   return [...new Set(emails)];
 }
 
@@ -185,6 +187,12 @@ export async function sendReservationEmail(data: ReservationPayload): Promise<vo
   });
 
   if (error) {
+    console.error("[reservation] Resend send failed:", {
+      message: error.message,
+      name: error.name,
+      from,
+      toCount: to.length,
+    });
     throw new Error("RESEND_SEND_FAILED");
   }
 }

@@ -28,7 +28,7 @@ export async function ExperienceGallery({ locale }: { locale: Locale }) {
   const ig = dict.instagramReels;
   const profileUrl = getInstagramProfileUrl();
   const handle = getInstagramHandleLabel();
-  const videos = getReelVideos();
+  const reels = getReelVideos();
 
   const slides: GallerySlide[] = [
     { src: galleryImages.tableSpread, alt: g.alts.tableSpread },
@@ -46,7 +46,7 @@ export async function ExperienceGallery({ locale }: { locale: Locale }) {
     { src: galleryImages.pastilla, alt: g.alts.pastilla },
   ];
 
-  const reelItems = videos.map((reel, index) => ({
+  const reelItems = reels.map((reel, index) => ({
     reel,
     title: `${ig.reelLabel} ${index + 1}`,
   }));

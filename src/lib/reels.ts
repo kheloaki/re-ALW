@@ -3,32 +3,40 @@ import path from "path";
 
 export type ReelVideo = {
   id: string;
-  /** Primary video URL (.webm preferred, else .mp4) */
-  webm: string;
-  mp4?: string;
+  video: string;
   poster?: string;
 };
 
 const REELS_DIR = path.join(process.cwd(), "public", "assets", "reels");
-const VIDEO_EXT = /\.(webm|mp4)$/i;
+const VIDEO_EXT = /\.webm$/i;
+const CAROUSEL_REELS = 8;
 
 function reelPublicPath(filename: string): string {
   return `/assets/reels/${filename}`;
 }
 
 function findPoster(baseName: string, files: Set<string>): string | undefined {
-  for (const ext of [".avif", ".jpg", ".jpeg", ".webp", ".png"]) {
+  for (const ext of [".jpg", ".jpeg", ".webp", ".avif", ".png"]) {
     const name = `${baseName}${ext}`;
     if (files.has(name)) return reelPublicPath(name);
   }
   return undefined;
 }
 
-/** Reads `public/assets/reels/` at build/request time (server only). */
-function discoverReelsFromDisk(): ReelVideo[] {
+function sortReelBase(a: string, b: string): number {
+  const numA = Number(a.replace(/^Reel-/, ""));
+  const numB = Number(b.replace(/^Reel-/, ""));
+  if (Number.isFinite(numA) && Number.isFinite(numB)) return numA - numB;
+  return a.localeCompare(b, undefined, { numeric: true });
+}
+
+/** Reads `public/assets/reels/Reel-*.webm` (server only). */
+export function getReelVideos(): ReelVideo[] {
   if (!fs.existsSync(REELS_DIR)) return [];
 
-  const allFiles = fs.readdirSync(REELS_DIR).filter((name) => !name.startsWith("."));
+  const allFiles = fs
+    .readdirSync(REELS_DIR)
+    .filter((name) => !name.startsWith(".") && !name.includes(".compressing."));
   if (!allFiles.length) return [];
 
   const fileSet = new Set(allFiles);
@@ -38,54 +46,13 @@ function discoverReelsFromDisk(): ReelVideo[] {
     if (VIDEO_EXT.test(file)) bases.add(file.replace(VIDEO_EXT, ""));
   }
 
-  const reels: ReelVideo[] = [];
-
-  for (const base of Array.from(bases).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))) {
-    const webmFile = fileSet.has(`${base}.webm`) ? `${base}.webm` : undefined;
-    const mp4File = fileSet.has(`${base}.mp4`) ? `${base}.mp4` : undefined;
-    if (!webmFile && !mp4File) continue;
-
-    reels.push({
-      id: `reel-${base}`,
-      webm: reelPublicPath(webmFile ?? mp4File!),
-      mp4: webmFile && mp4File ? reelPublicPath(mp4File) : undefined,
+  return Array.from(bases)
+    .filter((base) => /^Reel-\d+$/.test(base))
+    .sort(sortReelBase)
+    .slice(0, CAROUSEL_REELS)
+    .map((base) => ({
+      id: `reel-${base.toLowerCase()}`,
+      video: reelPublicPath(`${base}.webm`),
       poster: findPoster(base, fileSet),
-    });
-  }
-
-  return reels;
-}
-
-function parseEnvReelEntry(raw: string, index: number): ReelVideo | null {
-  const trimmed = raw.trim();
-  if (!trimmed) return null;
-
-  const parts = trimmed.split("|").map((p) => p.trim());
-  const webm = parts[0];
-  if (!webm) return null;
-
-  const resolve = (file: string) => (file.startsWith("/") ? file : reelPublicPath(file));
-  const src = resolve(webm);
-  const mp4 = parts[1] ? resolve(parts[1]) : undefined;
-  const poster = parts[2] ? resolve(parts[2]) : undefined;
-
-  return {
-    id: `reel-env-${index}`,
-    webm: /\.(webm|mp4)$/i.test(src) ? src : `${src}.webm`,
-    mp4,
-    poster,
-  };
-}
-
-/** Env override, otherwise every `.webm` / `.mp4` in `public/assets/reels/`. */
-export function getReelVideos(): ReelVideo[] {
-  const raw = process.env.NEXT_PUBLIC_REEL_VIDEOS?.trim();
-  if (raw) {
-    return raw
-      .split(/[,;\n]+/)
-      .map(parseEnvReelEntry)
-      .filter((v): v is ReelVideo => v !== null);
-  }
-
-  return discoverReelsFromDisk();
+    }));
 }

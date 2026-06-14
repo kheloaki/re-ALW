@@ -18,7 +18,6 @@ import { getDictionary } from "@/i18n/get-dictionary";
 import { FOOTER_SEO_KEYWORDS } from "@/lib/footerSeo";
 import { getLocalSeoKeywords } from "@/lib/seo/local";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { getReelVideos } from "@/lib/reels";
 import { getHomePageSchemas } from "@/lib/seo/schema";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -48,12 +47,8 @@ export default async function HomePage({ params }: PageProps) {
   const dict = await getDictionary(locale);
   preload(HERO_IMAGE_SRC, { as: "image", fetchPriority: "high" });
 
-  const reelPosterUrls = getReelVideos()
-    .map((r) => r.poster)
-    .filter((url): url is string => Boolean(url));
-
   return (
-    <HomePageShell reelPosterUrls={reelPosterUrls}>
+    <HomePageShell>
       <div className="site-shell main-wrapper">
         <JsonLd data={getHomePageSchemas(locale, dict.meta.title, dict.meta.description)} />
         <Navbar />

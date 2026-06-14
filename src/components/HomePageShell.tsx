@@ -1,23 +1,16 @@
 "use client";
 
-import { useMemo } from "react";
 import { HomeInitialLoader } from "@/components/HomeInitialLoader";
 import { HOME_PRELOAD_ASSETS } from "@/lib/homePreloadAssets";
 
 type HomePageShellProps = {
   children: React.ReactNode;
-  reelPosterUrls?: string[];
 };
 
-export function HomePageShell({ children, reelPosterUrls = [] }: HomePageShellProps) {
-  const assetUrls = useMemo(
-    () => [...HOME_PRELOAD_ASSETS, ...reelPosterUrls.filter(Boolean)],
-    [reelPosterUrls],
-  );
-
+export function HomePageShell({ children }: HomePageShellProps) {
   return (
     <>
-      <HomeInitialLoader assetUrls={assetUrls} />
+      <HomeInitialLoader assetUrls={HOME_PRELOAD_ASSETS} />
       {children}
     </>
   );

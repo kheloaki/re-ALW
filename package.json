@@ -7,7 +7,8 @@
     "prebuild": "node scripts/generate-sitemap.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "compress-reels": "node scripts/compress-reels.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
