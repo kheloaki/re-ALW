@@ -1196,11 +1196,18 @@ html[lang="ar"] button {
 }
 
 .instagram-reel-card__video {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background: #1a1612;
+  background: transparent;
+}
+
+.instagram-reel-card__poster {
+  object-fit: cover;
+  object-position: center;
 }
 
 .instagram-reel-card__link {

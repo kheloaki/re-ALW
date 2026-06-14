@@ -4,6 +4,7 @@ import path from "path";
 export type ReelVideo = {
   id: string;
   video: string;
+  mp4?: string;
   poster?: string;
 };
 
@@ -53,6 +54,7 @@ export function getReelVideos(): ReelVideo[] {
     .map((base) => ({
       id: `reel-${base.toLowerCase()}`,
       video: reelPublicPath(`${base}.webm`),
+      mp4: fileSet.has(`${base}.mp4`) ? reelPublicPath(`${base}.mp4`) : undefined,
       poster: findPoster(base, fileSet),
     }));
 }

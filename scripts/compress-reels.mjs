@@ -100,6 +100,46 @@ function compressOne(baseName) {
   const saved = Math.max(0, before - after);
   const pct = before > 0 ? Math.round((saved / before) * 100) : 0;
   console.log(`→ ${formatKb(after)} (−${pct}%)`);
+  encodeMp4(baseName);
+}
+
+function encodeMp4(baseName) {
+  const input = path.join(REELS_DIR, `${baseName}.webm`);
+  const output = path.join(REELS_DIR, `${baseName}.mp4`);
+  if (!fs.existsSync(input)) return;
+
+  process.stdout.write(`  mp4 ${baseName}.mp4… `);
+
+  const args = [
+    "-y",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-i",
+    input,
+    "-an",
+    "-vf",
+    "scale=-2:540",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "28",
+    "-preset",
+    "fast",
+    "-movflags",
+    "+faststart",
+    "-pix_fmt",
+    "yuv420p",
+    output,
+  ];
+
+  const result = spawnSync("ffmpeg", args, { stdio: "inherit" });
+  if (result.status !== 0) {
+    console.log("failed");
+    return;
+  }
+
+  console.log(formatKb(fs.statSync(output).size));
 }
 
 function listTargets() {
@@ -122,7 +162,7 @@ function main() {
 
   console.log(`Compressing ${targets.length} reel(s) to 540p VP9 (muted)…\n`);
   for (const base of targets) compressOne(base);
-  console.log("\nDone. Deploy the smaller .webm files in public/assets/reels/.");
+  console.log("\nDone. Deploy .webm + .mp4 files in public/assets/reels/.");
 }
 
 main();

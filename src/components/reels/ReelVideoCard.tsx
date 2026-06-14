@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import type { ReelVideo } from "@/lib/reels";
 
@@ -21,6 +22,7 @@ export function ReelVideoCard({ reel, title }: ReelVideoCardProps) {
 
     const onReady = () => tryPlay(video);
     video.addEventListener("loadeddata", onReady);
+    video.addEventListener("canplay", onReady);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -35,13 +37,24 @@ export function ReelVideoCard({ reel, title }: ReelVideoCardProps) {
 
     return () => {
       video.removeEventListener("loadeddata", onReady);
+      video.removeEventListener("canplay", onReady);
       observer.disconnect();
     };
-  }, [reel.video]);
+  }, [reel.video, reel.mp4]);
 
   return (
     <article className="instagram-reel-card shrink-0 snap-center">
       <div className="instagram-reel-card__frame" aria-label={title}>
+        {reel.poster ? (
+          <Image
+            src={reel.poster}
+            alt=""
+            fill
+            sizes="(max-width: 640px) 82vw, 280px"
+            className="instagram-reel-card__poster"
+            aria-hidden
+          />
+        ) : null}
         <video
           ref={videoRef}
           className="instagram-reel-card__video"
@@ -49,8 +62,9 @@ export function ReelVideoCard({ reel, title }: ReelVideoCardProps) {
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
         >
+          {reel.mp4 ? <source src={reel.mp4} type="video/mp4" /> : null}
           <source src={reel.video} type="video/webm" />
         </video>
       </div>
