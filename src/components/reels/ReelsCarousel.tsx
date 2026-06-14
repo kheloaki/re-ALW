@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import type { ReelVideo } from "@/lib/reels";
 import { ReelVideoCard } from "./ReelVideoCard";
 
@@ -12,43 +13,33 @@ type ReelsCarouselProps = {
   items: ReelCarouselItem[];
 };
 
-function ReelStrip({
-  items,
-  ariaHidden = false,
-}: {
-  items: ReelCarouselItem[];
-  ariaHidden?: boolean;
-}) {
-  return (
-    <div
-      className={`instagram-reels-marquee__strip flex shrink-0 items-stretch gap-4 sm:gap-5${ariaHidden ? " pointer-events-none" : ""}`}
-      aria-hidden={ariaHidden || undefined}
-    >
-      {items.map(({ reel, title }, index) => (
-        <ReelVideoCard
-          key={`${reel.id}-${ariaHidden ? "dup" : "a"}-${index}`}
-          reel={reel}
-          title={title}
-        />
-      ))}
-    </div>
-  );
-}
-
 export function ReelsCarousel({ items }: ReelsCarouselProps) {
   if (items.length === 0) return null;
 
-  const durationSec = Math.max(72, items.length * 11);
+  const desktopDurationSec = Math.max(42, items.length * 5);
+  const mobileDurationSec = Math.max(22, items.length * 2.75);
+  const loopItems = [...items, ...items];
 
   return (
     <div className="instagram-reels-marquee">
       <div className="instagram-reels-marquee__viewport">
         <div
           className="instagram-reels-marquee__track"
-          style={{ animationDuration: `${durationSec}s` }}
+          style={
+            {
+              "--reels-duration-mobile": `${mobileDurationSec}s`,
+              "--reels-duration-desktop": `${desktopDurationSec}s`,
+            } as CSSProperties
+          }
         >
-          <ReelStrip items={items} />
-          <ReelStrip items={items} ariaHidden />
+          {loopItems.map(({ reel, title }, index) => (
+            <ReelVideoCard
+              key={`${reel.id}-loop-${index}`}
+              reel={reel}
+              title={title}
+              ariaHidden={index >= items.length}
+            />
+          ))}
         </div>
       </div>
     </div>

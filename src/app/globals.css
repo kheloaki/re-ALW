@@ -1147,7 +1147,7 @@ html[lang="ar"] button {
   overflow: hidden;
   width: 100%;
   padding-bottom: 16px;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 2%, #000 98%, transparent 100%);
 }
 
 .instagram-reels-marquee__track {
@@ -1155,6 +1155,13 @@ html[lang="ar"] button {
   width: max-content;
   will-change: transform;
   animation: reels-marquee-left linear infinite;
+  animation-duration: var(--reels-duration-mobile, 24s);
+}
+
+@media (min-width: 640px) {
+  .instagram-reels-marquee__track {
+    animation-duration: var(--reels-duration-desktop, 42s);
+  }
 }
 
 .instagram-reels-marquee__viewport:hover .instagram-reels-marquee__track {
@@ -1171,10 +1178,24 @@ html[lang="ar"] button {
 }
 
 .instagram-reel-card {
-  width: min(82vw, 300px);
+  width: min(25vw, 104px);
+  margin-inline-end: 0.625rem;
+}
+
+@media (min-width: 480px) {
+  .instagram-reel-card {
+    width: min(30vw, 148px);
+  }
 }
 
 @media (min-width: 640px) {
+  .instagram-reel-card {
+    width: 220px;
+    margin-inline-end: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
   .instagram-reel-card {
     width: 280px;
   }
@@ -1183,11 +1204,17 @@ html[lang="ar"] button {
 .instagram-reel-card__frame {
   position: relative;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid rgba(214, 173, 99, 0.55);
   background: #1a1612;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
   aspect-ratio: 9 / 16;
+}
+
+@media (min-width: 640px) {
+  .instagram-reel-card__frame {
+    border-radius: 16px;
+  }
 }
 
 .instagram-reel-card__image {
@@ -1304,7 +1331,8 @@ html[lang="ar"] button {
     justify-content: center;
   }
 
-  .instagram-reels-marquee__strip[aria-hidden] {
+  .instagram-reels-marquee__strip[aria-hidden],
+  .instagram-reel-card[aria-hidden="true"] {
     display: none;
   }
 
@@ -1983,6 +2011,209 @@ html[lang="ar"] button {
 
 .gold-btn {
   @apply rounded-full border border-[#f1d28a]/70 bg-gradient-to-b from-[#f2d790] to-[#be8a3f] px-9 py-3 text-base font-semibold tracking-wide text-[#1e170f] shadow-[0_0_28px_rgba(214,173,99,0.48),0_0_48px_rgba(214,173,99,0.22),0_12px_20px_rgba(52,38,26,0.35)] transition hover:-translate-y-0.5 hover:brightness-105;
+}
+
+/* Reservation form fields */
+.reservation-phone__code-trigger {
+  cursor: pointer;
+}
+
+.reservation-phone__flag {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
+.reservation-phone__search {
+  cursor: text;
+}
+
+.reservation-phone__code-menu {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(214, 173, 99, 0.45) transparent;
+}
+
+.reservation-phone__code-option {
+  cursor: pointer;
+}
+
+.reservation-date-picker__track {
+  display: flex;
+  gap: 0.55rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
+}
+
+.reservation-date-picker__chip {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  display: flex;
+  min-width: 4.6rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(197, 154, 84, 0.45);
+  background: linear-gradient(165deg, rgba(74, 68, 60, 0.95), rgba(58, 54, 48, 0.98));
+  padding: 0.55rem 0.65rem 0.6rem;
+  color: #e8d8b8;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.reservation-date-picker__chip:hover:not(:disabled) {
+  border-color: rgba(228, 196, 122, 0.75);
+  transform: translateY(-1px);
+}
+
+.reservation-date-picker__chip.is-selected {
+  border-color: rgba(228, 196, 122, 0.95);
+  background: linear-gradient(165deg, rgba(92, 78, 52, 0.98), rgba(68, 58, 40, 1));
+  box-shadow: 0 0 0 1px rgba(214, 173, 99, 0.35), 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+
+.reservation-date-picker__weekday {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #d6ad63;
+}
+
+.reservation-date-picker__day {
+  font-family: var(--font-cormorant, "Cormorant Garamond", serif);
+  font-size: 1.35rem;
+  line-height: 1;
+  font-weight: 600;
+  color: #f8e8c0;
+}
+
+.reservation-date-picker__month {
+  font-size: 0.68rem;
+  color: #c4b8a4;
+  text-transform: capitalize;
+}
+
+.reservation-time-picker__trigger {
+  cursor: pointer;
+  text-align: left;
+}
+
+.reservation-time-picker__display {
+  font-variant-numeric: tabular-nums;
+}
+
+.reservation-time-picker__value {
+  font-family: var(--font-cormorant, "Cormorant Garamond", serif);
+  font-size: 1.45rem;
+  line-height: 1;
+  font-weight: 600;
+  color: #fff4d6;
+}
+
+.reservation-time-picker__separator,
+.reservation-time-picker__panel-separator {
+  font-family: var(--font-cormorant, "Cormorant Garamond", serif);
+  font-size: 1.35rem;
+  line-height: 1;
+  font-weight: 500;
+  color: #d6ad63;
+}
+
+.reservation-time-picker__panel-separator {
+  align-self: center;
+  padding-top: 1.35rem;
+}
+
+.reservation-time-picker__placeholder {
+  font-size: 0.92rem;
+  color: #d6c7aa;
+}
+
+.reservation-time-picker__panel-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.35rem;
+  padding: 0.65rem 0.55rem 0.7rem;
+}
+
+.reservation-time-picker__column {
+  min-width: 0;
+}
+
+.reservation-time-picker__column-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  text-align: center;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #d6ad63;
+}
+
+.reservation-time-picker__column-list {
+  display: flex;
+  max-height: 11.5rem;
+  flex-direction: column;
+  gap: 0.2rem;
+  overflow-y: auto;
+  padding: 0.15rem;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(214, 173, 99, 0.45) transparent;
+}
+
+.reservation-time-picker__option {
+  scroll-snap-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 0.42rem 0.55rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: #e8d8b8;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.reservation-time-picker__option:hover:not(:disabled) {
+  border-color: rgba(228, 196, 122, 0.45);
+  background: rgba(90, 84, 76, 0.65);
+}
+
+.reservation-time-picker__option.is-selected {
+  border-color: rgba(240, 210, 138, 0.95);
+  background: linear-gradient(135deg, rgba(214, 173, 99, 0.32), rgba(139, 106, 62, 0.5));
+  box-shadow: inset 0 0 0 1px rgba(255, 236, 196, 0.16);
+  color: #fff8e8;
+}
+
+.reservation-field__select {
+  cursor: pointer;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23e4c47a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px 8px;
+}
+
+.reservation-field__select option {
+  color: #1a130c;
+  background: #f8e8c0;
+}
+
+.reservation-field__date {
+  color-scheme: dark;
+}
+
+.reservation-field__date::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.75;
+  filter: invert(0.85) sepia(0.25) saturate(2) hue-rotate(5deg);
 }
 
 /* Reservation form — long labels (e.g. FR) may wrap; grow height instead of clipping */

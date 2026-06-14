@@ -7,13 +7,14 @@ import type { ReelVideo } from "@/lib/reels";
 type ReelVideoCardProps = {
   reel: ReelVideo;
   title: string;
+  ariaHidden?: boolean;
 };
 
 function tryPlay(video: HTMLVideoElement) {
   void video.play().catch(() => {});
 }
 
-export function ReelVideoCard({ reel, title }: ReelVideoCardProps) {
+export function ReelVideoCard({ reel, title, ariaHidden = false }: ReelVideoCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -43,14 +44,17 @@ export function ReelVideoCard({ reel, title }: ReelVideoCardProps) {
   }, [reel.video, reel.mp4]);
 
   return (
-    <article className="instagram-reel-card shrink-0 snap-center">
+    <article
+      className="instagram-reel-card shrink-0 snap-center"
+      aria-hidden={ariaHidden || undefined}
+    >
       <div className="instagram-reel-card__frame" aria-label={title}>
         {reel.poster ? (
           <Image
             src={reel.poster}
             alt=""
             fill
-            sizes="(max-width: 640px) 82vw, 280px"
+            sizes="(max-width: 639px) 25vw, (max-width: 1024px) 220px, 280px"
             className="instagram-reel-card__poster"
             aria-hidden
           />

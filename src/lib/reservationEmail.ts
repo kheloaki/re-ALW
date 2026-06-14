@@ -1,6 +1,8 @@
 import { Resend } from "resend";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getSiteUrl } from "@/lib/site";
+import { isAllowedReservationTime } from "@/lib/reservationSlots";
+import { isValidSubmittedPhone } from "@/lib/phoneCountries";
 import { VENUE } from "@/lib/venue";
 
 export type ReservationPayload = {
@@ -13,7 +15,11 @@ export type ReservationPayload = {
   locale: Locale;
 };
 
-const PHONE_RE = /^[\d\s+().-]{8,24}$/;
+const PHONE_RE = /^\+[\d\s().-]{9,24}$/;
+
+function isValidPhone(phone: string): boolean {
+  return PHONE_RE.test(phone) && isValidSubmittedPhone(phone);
+}
 
 function asTrimmedString(value: unknown, maxLen: number): string | null {
   if (typeof value !== "string") return null;
@@ -59,11 +65,11 @@ export function parseReservationBody(
   const specialRequests = asTrimmedString(raw.specialRequests ?? "", 2000) ?? "";
 
   if (!name || name.length < 2) return { ok: false, message: "invalid_name" };
-  if (!phone || !PHONE_RE.test(phone)) return { ok: false, message: "invalid_phone" };
+  if (!phone || !isValidPhone(phone)) return { ok: false, message: "invalid_phone" };
   if (!date || !isValidDateString(date) || !isNotPastDate(date)) {
     return { ok: false, message: "invalid_date" };
   }
-  if (!time || !/^\d{2}:\d{2}$/.test(time)) return { ok: false, message: "invalid_time" };
+  if (!time || !isAllowedReservationTime(time)) return { ok: false, message: "invalid_time" };
 
   const guestsNum = Number(raw.guests);
   if (!Number.isInteger(guestsNum) || guestsNum < 1 || guestsNum > 30) {

@@ -82,12 +82,24 @@ export type Dictionary = {
     sectionTitle: string;
     cardTitle: string;
     name: string;
+    namePlaceholder: string;
     phone: string;
+    phonePlaceholder: string;
+    countrySearch: string;
     date: string;
+    today: string;
     time: string;
+    timePlaceholder: string;
+    hour: string;
+    minute: string;
     guests: string;
+    guestsPlaceholder: string;
+    guestSingular: string;
+    guestPlural: string;
     message: string;
     specialRequests: string;
+    specialRequestsPlaceholder: string;
+    hoursHint: string;
     submit: string;
     confirm: string;
     conciergeTitle: string;
@@ -102,6 +114,7 @@ export type Dictionary = {
     errorNetwork: string;
     errorNotConfigured: string;
     errorRateLimited: string;
+    errorValidation: string;
   };
   map: {
     title: string;
