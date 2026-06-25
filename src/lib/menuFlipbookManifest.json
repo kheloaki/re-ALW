@@ -1,0 +1,63 @@
+{
+  "source": "walima 2026.pdf",
+  "generatedAt": "2026-06-25T15:45:34.902Z",
+  "pageCount": 8,
+  "pages": [
+    {
+      "id": "page-1",
+      "src": "/assets/menu/pages/page-001.png",
+      "width": 2828,
+      "height": 3999,
+      "pageNumber": 1
+    },
+    {
+      "id": "page-2",
+      "src": "/assets/menu/pages/page-002.png",
+      "width": 2828,
+      "height": 3999,
+      "pageNumber": 2
+    },
+    {
+      "id": "page-3",
+      "src": "/assets/menu/pages/page-003.png",
+      "width": 2828,
+      "height": 3999,
+      "pageNumber": 3
+    },
+    {
+      "id": "page-4",
+      "src": "/assets/menu/pages/page-004.png",
+      "width": 2828,
+      "height": 3999,
+      "pageNumber": 4
+    },
+    {
+      "id": "page-5",
+      "src": "/assets/menu/pages/page-005.png",
+      "width": 2828,
+      "height": 3999,
+      "pageNumber": 5
+    },
+    {
+      "id": "page-6",
+      "src": "/assets/menu/pages/page-006.png",
+      "width": 2828,
+      "height": 3999,
+      "pageNumber": 6
+    },
+    {
+      "id": "page-7",
+      "src": "/assets/menu/pages/page-007.png",
+      "width": 2828,
+      "height": 3999,
+      "pageNumber": 7
+    },
+    {
+      "id": "page-8",
+      "src": "/assets/menu/pages/page-008.png",
+      "width": 2828,
+      "height": 3999,
+      "pageNumber": 8
+    }
+  ]
+}

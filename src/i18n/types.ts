@@ -6,6 +6,12 @@ export type Dictionary = {
   stickyCall: {
     label: string;
   };
+  stickyMenu: {
+    label: string;
+  };
+  stickyActions: {
+    groupLabel: string;
+  };
   nav: {
     home: string;
     menu: string;
@@ -159,6 +165,19 @@ export type Dictionary = {
     signatureBadge: string;
     bookTable: string;
     backHome: string;
+  };
+  menuFlipbook: {
+    metaTitle: string;
+    metaDescription: string;
+    title: string;
+    pageLabel: string;
+    previous: string;
+    next: string;
+    back: string;
+    open: string;
+    openFlipbook: string;
+    zoomReset: string;
+    pinchHint: string;
   };
   footer: {
     brandText: string;

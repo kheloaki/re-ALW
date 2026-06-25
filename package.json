@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/generate-sitemap.mjs",
+    "prebuild": "node scripts/generate-sitemap.mjs && node scripts/generate-menu-flipbook.mjs",
+    "generate-menu-flipbook": "node scripts/generate-menu-flipbook.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -13,8 +14,10 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "next": "16.2.6",
+    "pdfjs-dist": "^6.0.227",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "react-pageflip": "^2.0.3",
     "resend": "^6.12.4"
   },
   "browserslist": [
@@ -24,6 +27,7 @@
     "safari >= 16.4"
   ],
   "devDependencies": {
+    "@napi-rs/canvas": "^1.0.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

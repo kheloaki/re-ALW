@@ -135,7 +135,7 @@ const FAQ: Record<Locale, SeoFaqItem[]> = {
     {
       question: "Are prices in Moroccan dirhams?",
       answer:
-        "Yes, all menu prices are in Moroccan dirhams (DH), from starters at 15 DH to premium and family-size dishes.",
+        "Yes, all menu prices are in Moroccan dirhams (DH), from appetizers at 20 DH to premium and family-size dishes.",
     },
     {
       question: "Is Al Walima good for families and groups?",

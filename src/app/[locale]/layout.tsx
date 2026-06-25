@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Amiri, Cormorant_Garamond, Dancing_Script, Inter, Noto_Naskh_Arabic } from "next/font/google";
 import { notFound } from "next/navigation";
 import { LocaleProvider } from "@/components/LocaleProvider";
-import { CallStickyButton } from "@/components/CallStickyButton";
+import { StickyActionButtons } from "@/components/StickyActionButtons";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { defaultLocale, isLocale, locales, type Locale } from "@/i18n/config";
@@ -96,7 +96,7 @@ export default async function LocaleLayout({
         <LocaleProvider locale={locale} dict={dict}>
           <SmoothScroll />
           {children}
-          <CallStickyButton />
+          <StickyActionButtons />
         </LocaleProvider>
         <Analytics />
       </body>

@@ -104,12 +104,20 @@ html.home-loader-active body {
   }
 }
 
-/* Sticky call — bottom-right on all pages */
-.call-sticky {
+/* Sticky quick actions — menu + call */
+.sticky-actions {
   position: fixed;
   right: 1.25rem;
   bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
   z-index: 45;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.sticky-action {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -128,7 +136,7 @@ html.home-loader-active body {
     filter 0.25s ease;
 }
 
-.call-sticky:hover {
+.sticky-action:hover {
   transform: translateY(-2px) scale(1.04);
   filter: brightness(1.06);
   box-shadow:
@@ -136,19 +144,25 @@ html.home-loader-active body {
     0 10px 32px rgba(0, 0, 0, 0.42);
 }
 
-.call-sticky:focus-visible {
+.sticky-action:focus-visible {
   outline: 2px solid #f1d28a;
   outline-offset: 3px;
 }
 
-.call-sticky__icon {
+.sticky-action--menu {
+  background: linear-gradient(180deg, #4b463f 0%, #2f2a25 100%);
+  border-color: rgba(214, 173, 99, 0.55);
+  color: #f5ecd8;
+}
+
+.sticky-action__icon {
   position: relative;
   z-index: 1;
   width: 1.625rem;
   height: 1.625rem;
 }
 
-.call-sticky__pulse {
+.sticky-action__pulse {
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -173,28 +187,137 @@ html.home-loader-active body {
 }
 
 @media (min-width: 640px) {
-  .call-sticky {
+  .sticky-actions {
     right: 1.5rem;
     bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+
+  .sticky-action {
     width: 3.75rem;
     height: 3.75rem;
   }
 
-  .call-sticky__icon {
+  .sticky-action__icon {
     width: 1.75rem;
     height: 1.75rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .call-sticky__pulse {
+  .sticky-action__pulse {
     animation: none;
     display: none;
   }
 
-  .call-sticky:hover {
+  .sticky-action:hover {
     transform: none;
   }
+}
+
+/* Menu flipbook */
+.walima-flipbook .stf__parent {
+  margin: 0 auto;
+}
+
+.walima-flipbook-page {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.walima-menu-flipbook__controls {
+  border-top: 1px solid rgba(214, 173, 99, 0.18);
+}
+
+.walima-menu-flipbook__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(214, 173, 99, 0.5);
+  background: rgba(74, 68, 60, 0.92);
+  color: #f5ecd8;
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.walima-menu-flipbook__nav:hover {
+  border-color: rgba(228, 196, 122, 0.85);
+  background: rgba(90, 84, 76, 0.95);
+}
+
+.walima-menu-flipbook__nav:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.walima-menu-flipbook__zoom-reset {
+  margin-inline-start: 0.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(214, 173, 99, 0.5);
+  background: rgba(74, 68, 60, 0.92);
+  color: #f5ecd8;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.walima-menu-flipbook__pinch-hint {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: #9a8f78;
+  text-align: center;
+}
+
+.flipbook-pinch-zoom {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.flipbook-pinch-zoom__surface {
+  will-change: transform;
+}
+
+.walima-menu-flipbook__counter {
+  min-width: 4.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #d6c7aa;
+}
+
+.walima-flipbook-book {
+  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.45));
+}
+
+.immersive-book-stage {
+  transform-origin: center center;
+  will-change: transform;
+  transition: transform 0.55s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.immersive-book-stage--shifting {
+  transition-duration: 0.6s;
+  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.immersive-book-stage--flipping {
+  transition-duration: 0.9s;
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.walima-flipbook-page__image {
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* First visit — brand mark preloader while home media loads */

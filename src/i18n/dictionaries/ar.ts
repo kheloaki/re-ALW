@@ -8,6 +8,12 @@ const ar: Dictionary = {
   stickyCall: {
     label: "اتصل بمطعم الوليمة",
   },
+  stickyMenu: {
+    label: "عرض القائمة",
+  },
+  stickyActions: {
+    groupLabel: "إجراءات سريعة",
+  },
   nav: {
     home: "الرئيسية",
     menu: "القائمة",
@@ -164,6 +170,19 @@ const ar: Dictionary = {
     signatureBadge: "مميز",
     bookTable: "احجز طاولتك",
     backHome: "العودة للرئيسية",
+  },
+  menuFlipbook: {
+    metaTitle: "القائمة | الوليمة — كتاب تفاعلي",
+    metaDescription: "تصفح قائمة مطعم الوليمة في أكادير — مقبلات، طاجين، كسكس، مشويات وحلويات.",
+    title: "قائمتنا",
+    pageLabel: "صفحة",
+    previous: "الصفحة السابقة",
+    next: "الصفحة التالية",
+    back: "رجوع",
+    open: "فتح القائمة",
+    openFlipbook: "فتح القائمة التفاعلية",
+    zoomReset: "إعادة التكبير",
+    pinchHint: "قرص للتكبير · نقرتان للإعادة",
   },
   footer: {
     brandText: "مطعم مغربي راقٍ: طاجين، كسكس رويال وضيافة دافئة في أكادير.",

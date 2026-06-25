@@ -9,6 +9,12 @@ const pl: Dictionary = {
   stickyCall: {
     label: "Zadzwoń do restauracji Al Walima",
   },
+  stickyMenu: {
+    label: "Zobacz menu",
+  },
+  stickyActions: {
+    groupLabel: "Szybkie akcje",
+  },
   nav: {
     home: "Strona główna",
     menu: "Menu",
@@ -177,6 +183,20 @@ const pl: Dictionary = {
     signatureBadge: "Signature",
     bookTable: "Zarezerwuj stolik",
     backHome: "Powrót na stronę główną",
+  },
+  menuFlipbook: {
+    metaTitle: "Menu | Al Walima — Flipbook",
+    metaDescription:
+      "Przeglądaj menu restauracji Al Walima w Agadirze — przystawki, tagine, kuskus, grill i desery.",
+    title: "Nasze menu",
+    pageLabel: "Strona",
+    previous: "Poprzednia strona",
+    next: "Następna strona",
+    back: "Wróć",
+    open: "Otwórz menu",
+    openFlipbook: "Otwórz menu flipbook",
+    zoomReset: "Resetuj zoom",
+    pinchHint: "Uszczypnij, aby powiększyć · dwukrotne stuknięcie, aby zresetować",
   },
   footer: {
     brandText:

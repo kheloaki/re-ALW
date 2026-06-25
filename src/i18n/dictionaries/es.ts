@@ -9,6 +9,12 @@ const es: Dictionary = {
   stickyCall: {
     label: "Llamar al restaurante Al Walima",
   },
+  stickyMenu: {
+    label: "Ver carta",
+  },
+  stickyActions: {
+    groupLabel: "Acciones rápidas",
+  },
   nav: {
     home: "Inicio",
     menu: "Carta",
@@ -193,6 +199,20 @@ const es: Dictionary = {
     signatureBadge: "Estrella",
     bookTable: "Reservar mesa",
     backHome: "Volver al inicio",
+  },
+  menuFlipbook: {
+    metaTitle: "Carta | Al Walima — Flipbook",
+    metaDescription:
+      "Consulte la carta del restaurante Al Walima en Agadir: entrantes, tajines, cuscús, parrilla y postres.",
+    title: "Nuestra carta",
+    pageLabel: "Página",
+    previous: "Página anterior",
+    next: "Página siguiente",
+    back: "Volver",
+    open: "Abrir carta",
+    openFlipbook: "Abrir carta flipbook",
+    zoomReset: "Restablecer zoom",
+    pinchHint: "Pellizca para zoom · doble toque para restablecer",
   },
   footer: {
     brandText:

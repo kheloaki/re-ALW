@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 const LOCALES = ["fr", "en", "es", "ar", "pl", "de"];
 const DEFAULT_LOCALE = "fr";
-const ROUTES = ["/", "/menu", "/reservation"];
+const ROUTES = ["/", "/menu", "/menu/book", "/reservation"];
 const PRODUCTION_URL = "https://www.restaurantalwalima.com";
 
 function getBaseUrl() {
