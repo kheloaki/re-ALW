@@ -51,6 +51,18 @@ async function main() {
   }
 
   mkdirSync(OUT_DIR, { recursive: true });
+
+  const hasAllPages =
+    existsSync(MANIFEST_PATH) &&
+    Array.from({ length: 8 }, (_, i) =>
+      existsSync(join(OUT_DIR, `page-${String(i + 1).padStart(3, "0")}.png`)),
+    ).every(Boolean);
+
+  if (hasAllPages) {
+    console.log("Menu flipbook pages already present — skipping PDF render.");
+    return;
+  }
+
   for (const file of readdirSync(OUT_DIR)) {
     if (file.endsWith(".webp") || file.endsWith(".jpg") || file.endsWith(".jpeg")) {
       unlinkSync(join(OUT_DIR, file));

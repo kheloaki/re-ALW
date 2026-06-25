@@ -12,6 +12,7 @@
     "compress-reels": "node scripts/compress-reels.mjs"
   },
   "dependencies": {
+    "@napi-rs/canvas": "^1.0.1",
     "@vercel/analytics": "^2.0.1",
     "next": "16.2.6",
     "pdfjs-dist": "^6.0.227",
@@ -27,7 +28,6 @@
     "safari >= 16.4"
   ],
   "devDependencies": {
-    "@napi-rs/canvas": "^1.0.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

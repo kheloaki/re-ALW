@@ -86,6 +86,3 @@ yarn-error.log*
 
 # Reference flipbook app at repo root (not production src/components/flipbook)
 /Flipbook/
-
-# Generated from walima 2026.pdf at prebuild (see scripts/generate-menu-flipbook.mjs)
-/public/assets/menu/pages/
