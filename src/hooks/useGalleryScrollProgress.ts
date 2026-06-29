@@ -90,3 +90,24 @@ export function galleryVisualProgress(progress: number, slideCount: number): num
   if (slideCount <= 1) return 0;
   return Math.min(1, Math.max(0, progress));
 }
+
+/** Scroll the page so the gallery track sits at the given 0→1 progress. */
+export function scrollGalleryToProgress(
+  trackEl: HTMLElement,
+  progress: number,
+  behavior: ScrollBehavior = "smooth",
+): void {
+  const vh = window.innerHeight;
+  const pinLine = readPinLine();
+  const trackPx = trackEl.offsetHeight;
+  const stickyPx = Math.max(1, vh - pinLine);
+  const scrollSpan = Math.max(1, trackPx - stickyPx);
+  const targetScrolled = Math.min(1, Math.max(0, progress)) * scrollSpan;
+  const rect = trackEl.getBoundingClientRect();
+  const currentScrolled = Math.min(scrollSpan, Math.max(0, pinLine - rect.top));
+  const delta = targetScrolled - currentScrolled;
+
+  if (Math.abs(delta) < 1) return;
+
+  window.scrollTo({ top: window.scrollY + delta, behavior });
+}

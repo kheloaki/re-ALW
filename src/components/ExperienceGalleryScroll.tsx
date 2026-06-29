@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   gallerySectionHeightVh,
   galleryVisualProgress,
+  scrollGalleryToProgress,
   useGalleryScrollProgress,
 } from "@/hooks/useGalleryScrollProgress";
 import { SectionTitle } from "./ui/SectionTitle";
@@ -21,7 +22,6 @@ type ExperienceGalleryScrollProps = {
 
 type TriptychState = {
   opacity: number;
-  blur: number;
   offsetPct: number;
   scale: number;
   zIndex: number;
@@ -29,15 +29,13 @@ type TriptychState = {
 
 const TRIPTYCH_CENTER: TriptychState = {
   opacity: 1,
-  blur: 0,
   offsetPct: 0,
   scale: 1,
   zIndex: 30,
 };
 
 const TRIPTYCH_SIDE: TriptychState = {
-  opacity: 0.75,
-  blur: 8,
+  opacity: 0.45,
   offsetPct: 0,
   scale: 0.8,
   zIndex: 12,
@@ -47,7 +45,6 @@ const TRIPTYCH_LEFT: TriptychState = { ...TRIPTYCH_SIDE, offsetPct: -52 };
 const TRIPTYCH_RIGHT: TriptychState = { ...TRIPTYCH_SIDE, offsetPct: 52 };
 const TRIPTYCH_HIDDEN: TriptychState = {
   opacity: 0,
-  blur: 14,
   offsetPct: 0,
   scale: 0.68,
   zIndex: 1,
@@ -56,7 +53,6 @@ const TRIPTYCH_HIDDEN: TriptychState = {
 function lerpTriptych(a: TriptychState, b: TriptychState, t: number): TriptychState {
   return {
     opacity: a.opacity + (b.opacity - a.opacity) * t,
-    blur: a.blur + (b.blur - a.blur) * t,
     offsetPct: a.offsetPct + (b.offsetPct - a.offsetPct) * t,
     scale: a.scale + (b.scale - a.scale) * t,
     zIndex: Math.round(a.zIndex + (b.zIndex - a.zIndex) * t),
@@ -77,11 +73,19 @@ function triptychMotion(index: number, scrollIndex: number): TriptychState {
 function triptychStyle(state: TriptychState) {
   return {
     opacity: state.opacity,
-    filter: state.blur > 0 ? `blur(${state.blur}px)` : "none",
     transform: `translateX(calc(-50% + ${state.offsetPct}%)) translateY(-50%) scale(${state.scale})`,
     zIndex: state.zIndex,
   };
 }
+
+const GALLERY_DRAG_PX_PER_SLIDE = 110;
+
+type GalleryStageHandlers = {
+  onPointerDown: (event: React.PointerEvent<HTMLDivElement>) => void;
+  onPointerMove: (event: React.PointerEvent<HTMLDivElement>) => void;
+  onPointerUp: (event: React.PointerEvent<HTMLDivElement>) => void;
+  onPointerCancel: (event: React.PointerEvent<HTMLDivElement>) => void;
+};
 
 export function GalleryPanel({
   title,
@@ -90,6 +94,8 @@ export function GalleryPanel({
   activeDot,
   animated = true,
   showTitle = true,
+  stageHandlers,
+  stageDragging = false,
 }: {
   title: string;
   slides: GallerySlide[];
@@ -97,6 +103,8 @@ export function GalleryPanel({
   activeDot: number;
   animated?: boolean;
   showTitle?: boolean;
+  stageHandlers?: GalleryStageHandlers;
+  stageDragging?: boolean;
 }) {
   const activeIndex = Math.min(slides.length - 1, Math.max(0, Math.round(scrollIndex)));
 
@@ -106,7 +114,10 @@ export function GalleryPanel({
         <SectionTitle title={title} className="shrink-0 text-3xl text-[#d6ad63] sm:text-5xl lg:text-[70px]" />
       ) : null}
 
-      <div className="experience-gallery-scroll__stage mx-auto mt-3 w-full shrink-0 sm:mt-4">
+      <div
+        className={`experience-gallery-scroll__stage mx-auto mt-3 w-full shrink-0 sm:mt-4${stageDragging ? " is-dragging" : ""}${stageHandlers ? " is-interactive" : ""}`}
+        {...stageHandlers}
+      >
         {slides.map((slide, index) => {
           const delta = scrollIndex - index;
           if (animated && Math.abs(delta) > 2.05) return null;
@@ -155,9 +166,12 @@ export function GalleryPanel({
 
 export function ExperienceGalleryScroll({ title, slides }: ExperienceGalleryScrollProps) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<{ startX: number; startIndex: number } | null>(null);
   const count = slides.length;
   const lastIndex = Math.max(0, count - 1);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [dragSlideOffset, setDragSlideOffset] = useState(0);
+  const [stageDragging, setStageDragging] = useState(false);
   const progress = useGalleryScrollProgress(trackRef, count, !reducedMotion);
   const sectionVh = gallerySectionHeightVh(count);
 
@@ -170,7 +184,55 @@ export function ExperienceGalleryScroll({ title, slides }: ExperienceGalleryScro
     return galleryVisualProgress(progress, count) * lastIndex;
   }, [progress, count, lastIndex]);
 
-  const activeDot = Math.min(lastIndex, Math.round(scrollIndex));
+  const displayScrollIndex = useMemo(() => {
+    const raw = scrollIndex + dragSlideOffset;
+    return Math.min(lastIndex, Math.max(0, raw));
+  }, [scrollIndex, dragSlideOffset, lastIndex]);
+
+  const activeDot = Math.min(lastIndex, Math.round(displayScrollIndex));
+
+  const finishDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragRef.current) return;
+
+    const deltaX = event.clientX - dragRef.current.startX;
+    const finalIndex = Math.min(
+      lastIndex,
+      Math.max(0, Math.round(dragRef.current.startIndex - deltaX / GALLERY_DRAG_PX_PER_SLIDE)),
+    );
+    dragRef.current = null;
+    setDragSlideOffset(0);
+    setStageDragging(false);
+
+    const trackEl = trackRef.current;
+    if (trackEl && count > 1) {
+      scrollGalleryToProgress(trackEl, finalIndex / lastIndex);
+    }
+
+    event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+
+  const stageHandlers: GalleryStageHandlers | undefined =
+    count > 1 && !reducedMotion
+      ? {
+          onPointerDown: (event) => {
+            if (event.button !== 0) return;
+            dragRef.current = {
+              startX: event.clientX,
+              startIndex: scrollIndex + dragSlideOffset,
+            };
+            setStageDragging(true);
+            event.currentTarget.setPointerCapture(event.pointerId);
+          },
+          onPointerMove: (event) => {
+            if (!dragRef.current) return;
+            const deltaX = event.clientX - dragRef.current.startX;
+            const nextIndex = dragRef.current.startIndex - deltaX / GALLERY_DRAG_PX_PER_SLIDE;
+            setDragSlideOffset(nextIndex - scrollIndex);
+          },
+          onPointerUp: finishDrag,
+          onPointerCancel: finishDrag,
+        }
+      : undefined;
 
   if (count <= 1) {
     return (
@@ -220,9 +282,11 @@ export function ExperienceGalleryScroll({ title, slides }: ExperienceGalleryScro
             <GalleryPanel
               title={title}
               slides={slides}
-              scrollIndex={scrollIndex}
+              scrollIndex={displayScrollIndex}
               activeDot={activeDot}
               animated
+              stageHandlers={stageHandlers}
+              stageDragging={stageDragging}
             />
           </div>
         </div>

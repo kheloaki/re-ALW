@@ -21,7 +21,7 @@ function PhoneIcon() {
   );
 }
 
-function MenuIcon() {
+function MenuBookIcon() {
   return (
     <svg viewBox="0 0 24 24" className="sticky-action__icon" fill="none" aria-hidden>
       <path
@@ -29,15 +29,25 @@ function MenuIcon() {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
-        d="M4 19.5A2.5 2.5 0 016.5 17H20M4 4.5A2.5 2.5 0 016.5 2H20M4 12A2.5 2.5 0 016.5 9.5H20"
+        d="M12 7v13"
       />
       <path
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
-        d="M6.5 17V20M6.5 2V5M6.5 9.5V12.5"
+        d="M12 7c-2.2-2-6-2-8 0v12.5c0 .6.4 1 1.2 1 1.8 0 4-.8 6.8-2.5"
       />
+      <path
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M12 7c2.2-2 6-2 8 0v12.5c0 .6-.4 1-1.2 1-1.8 0-4-.8-6.8-2.5"
+      />
+      <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M7.5 11h3" />
+      <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M7.5 14h4" />
+      <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M7.5 17h2.5" />
     </svg>
   );
 }
@@ -58,7 +68,7 @@ export function StickyActionButtons() {
         aria-label={dict.stickyMenu.label}
         title={dict.stickyMenu.label}
       >
-        <MenuIcon />
+        <MenuBookIcon />
       </Link>
       <a
         href={`tel:${VENUE.phoneTel}`}
