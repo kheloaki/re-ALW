@@ -51,7 +51,7 @@ export async function ExperienceGallery({ locale }: { locale: Locale }) {
     title: `${ig.reelLabel} ${index + 1}`,
   }));
 
-  const followHref = profileUrl || "https://www.instagram.com/";
+  const followHref = getInstagramProfileUrl();
 
   return (
     <>

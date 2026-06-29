@@ -1,6 +1,9 @@
 /** Canonical production domain (SEO, sitemap, Open Graph). */
 export const PRODUCTION_SITE_URL = "https://www.restaurantalwalima.com";
 
+/** Official Instagram profile. */
+export const PRODUCTION_INSTAGRAM_URL = "https://www.instagram.com/restaurantalwalima/";
+
 function normalizeSiteUrl(url: string): string {
   const trimmed = url.trim().replace(/\/$/, "");
   if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) return trimmed;
@@ -32,8 +35,8 @@ export function getSiteUrl(): string {
 export const SITE = {
   name: "Al Walima",
   legalName: "Restaurant Al Walima",
-  /** Compte Google Business / réseaux — à compléter */
-  instagramUrl: process.env.NEXT_PUBLIC_INSTAGRAM_URL?.trim() ?? "",
+  /** Compte Google Business / réseaux */
+  instagramUrl: process.env.NEXT_PUBLIC_INSTAGRAM_URL?.trim() || PRODUCTION_INSTAGRAM_URL,
   facebookUrl: process.env.NEXT_PUBLIC_FACEBOOK_URL?.trim() ?? "",
   /** 1200×630 crop of hero — link previews (WhatsApp, Facebook, etc.) */
   defaultOgImage: "/assets/og-share.jpg",

@@ -86,3 +86,8 @@ yarn-error.log*
 
 # Reference flipbook app at repo root (not production src/components/flipbook)
 /Flipbook/
+
+# Local WEB MENU source JPGs — run npm run import-menu-images (reads Downloads by default)
+/WEB MENU/
+/WEB MENU 2 /
+/WEB MENU 2/

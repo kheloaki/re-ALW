@@ -1,4 +1,4 @@
-import { SITE } from "@/lib/site";
+import { PRODUCTION_INSTAGRAM_URL, SITE } from "@/lib/site";
 
 export function getInstagramProfileUrl(): string {
   const fromSite = SITE.instagramUrl.trim();
@@ -7,7 +7,7 @@ export function getInstagramProfileUrl(): string {
   const handle = process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE?.trim().replace(/^@/, "");
   if (handle) return `https://www.instagram.com/${handle}/`;
 
-  return "";
+  return PRODUCTION_INSTAGRAM_URL.replace(/\/$/, "");
 }
 
 export function getInstagramHandleLabel(): string {
@@ -26,5 +26,5 @@ export function getInstagramHandleLabel(): string {
     }
   }
 
-  return "@alwalima";
+  return "@restaurantalwalima";
 }
