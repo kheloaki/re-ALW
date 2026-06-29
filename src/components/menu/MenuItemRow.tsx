@@ -7,7 +7,7 @@ type MenuItemRowProps = {
   name: MenuItemLabels;
   description?: MenuItemLabels;
   priceDh: number;
-  image: string;
+  image: string | null;
   signature?: boolean;
   signatureBadge: string;
   locale: Locale;
@@ -26,29 +26,40 @@ export function MenuItemRow({
   const secondary = menuSecondaryLine(name, locale);
 
   return (
-    <article className="menu-item-feature overflow-hidden rounded-2xl border border-[#d6ad63]/25 bg-[#1a1612]">
-      <div className="flex flex-col md:flex-row">
-        <div className="relative aspect-[5/3] w-full md:aspect-auto md:h-[min(180px,100%)] md:min-h-[160px] md:w-[38%] lg:w-[34%]">
-          <Image
-            src={image}
-            alt={primary}
-            fill
-            sizes="(max-width: 768px) 100vw, 280px"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806]/90 via-[#0a0806]/20 to-transparent md:bg-gradient-to-r md:from-[#0a0806]/95 md:via-[#0a0806]/40 md:to-transparent" />
-          {signature && (
-            <span className="absolute start-3 top-3 rounded-md border border-[#f1d28a]/55 bg-[#1e170f]/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-[#f1d28a]">
-              {signatureBadge}
-            </span>
-          )}
-        </div>
+    <article
+      className={`menu-item-feature overflow-hidden rounded-2xl border border-[#d6ad63]/25 bg-[#1a1612] ${image ? "" : "menu-item-feature--text-only"}`}
+    >
+      <div className={`flex ${image ? "flex-col md:flex-row" : ""}`}>
+        {image ? (
+          <div className="relative aspect-[5/3] w-full md:aspect-auto md:h-[min(180px,100%)] md:min-h-[160px] md:w-[38%] lg:w-[34%]">
+            <Image
+              src={image}
+              alt={primary}
+              fill
+              sizes="(max-width: 768px) 100vw, 280px"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806]/90 via-[#0a0806]/20 to-transparent md:bg-gradient-to-r md:from-[#0a0806]/95 md:via-[#0a0806]/40 md:to-transparent" />
+            {signature && (
+              <span className="absolute start-3 top-3 rounded-md border border-[#f1d28a]/55 bg-[#1e170f]/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-[#f1d28a]">
+                {signatureBadge}
+              </span>
+            )}
+          </div>
+        ) : null}
         <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6 md:justify-center">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
-              <h3 className="font-display text-[1.35rem] leading-tight text-[#faf3e3] sm:text-[1.65rem]">
-                {primary}
-              </h3>
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="font-display text-[1.35rem] leading-tight text-[#faf3e3] sm:text-[1.65rem]">
+                  {primary}
+                </h3>
+                {!image && signature ? (
+                  <span className="rounded-md border border-[#f1d28a]/55 bg-[#1e170f]/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#f1d28a]">
+                    {signatureBadge}
+                  </span>
+                ) : null}
+              </div>
               {secondary && (
                 <p
                   className="mt-1.5 hidden text-[12px] leading-snug text-[#9a8f78] sm:block"

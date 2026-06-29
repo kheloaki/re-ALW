@@ -20,7 +20,8 @@ export const GALLERY_ASSET_PATHS = [
   "/assets/gallery-pastilla.avif",
 ] as const;
 
-const SIGNATURE_PATHS = Object.values(SIGNATURE_DISHES).map((d) => d.image);
+const SIGNATURE_PATHS = Object.values(SIGNATURE_DISHES)
+  .flatMap((d) => ("image" in d && d.image ? [d.image] : []));
 
 /** All home media — loader waits for these before revealing the page */
 export const HOME_PRELOAD_ASSETS: string[] = [

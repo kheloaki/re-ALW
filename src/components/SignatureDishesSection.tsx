@@ -16,34 +16,38 @@ const POSTER_CANVAS_H = 1520;
 const MOBILE_LARGE = { width: 280, height: 459 };
 const MOBILE_MEDIUM = { width: 268, height: 447 };
 
+function signatureImage(dish: (typeof SIGNATURE_DISHES)[keyof typeof SIGNATURE_DISHES]) {
+  return "image" in dish ? dish.image : undefined;
+}
+
 function buildDishes(signatures: ReturnType<typeof useLocale>["dict"]["signatures"]) {
   return {
     tajine: {
       title: signatures.dishes.tajine.title,
       description: signatures.dishes.tajine.description,
       price: SIGNATURE_DISHES.tajine.price,
-      image: SIGNATURE_DISHES.tajine.image,
+      image: signatureImage(SIGNATURE_DISHES.tajine),
       size: SIGNATURE_DISHES.tajine.size,
     },
     couscous: {
       title: signatures.dishes.couscous.title,
       description: signatures.dishes.couscous.description,
       price: SIGNATURE_DISHES.couscous.price,
-      image: SIGNATURE_DISHES.couscous.image,
+      image: signatureImage(SIGNATURE_DISHES.couscous),
       size: SIGNATURE_DISHES.couscous.size,
     },
     brochettes: {
       title: signatures.dishes.brochettes.title,
       description: signatures.dishes.brochettes.description,
       price: SIGNATURE_DISHES.brochettes.price,
-      image: SIGNATURE_DISHES.brochettes.image,
+      image: signatureImage(SIGNATURE_DISHES.brochettes),
       size: SIGNATURE_DISHES.brochettes.size,
     },
     the: {
       title: signatures.dishes.tea.title,
       description: signatures.dishes.tea.description,
       price: SIGNATURE_DISHES.the.price,
-      image: SIGNATURE_DISHES.the.image,
+      image: signatureImage(SIGNATURE_DISHES.the),
       size: SIGNATURE_DISHES.the.size,
     },
   };

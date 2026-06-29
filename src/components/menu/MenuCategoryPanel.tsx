@@ -63,7 +63,7 @@ export function MenuCategoryPanel({
                 name={item.name}
                 description={item.description}
                 priceDh={item.priceDh}
-                image={resolveMenuItemImage(item.id, category.id, item.image)}
+                image={resolveMenuItemImage(item.id)}
                 signature={item.signature}
                 signatureBadge={signatureBadge}
                 locale={locale}

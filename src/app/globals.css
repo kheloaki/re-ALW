@@ -823,6 +823,14 @@ html[lang="ar"] button {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
 }
 
+.menu-item-feature--text-only {
+  background: rgba(26, 22, 18, 0.92);
+}
+
+.menu-item-feature--text-only:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
 /* Panneau catégorie */
 .menu-category-panel {
   overflow: hidden;
@@ -1214,6 +1222,16 @@ html[lang="ar"] button {
   overflow: visible;
 }
 
+.experience-gallery-scroll__stage.is-interactive {
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+
+.experience-gallery-scroll__stage.is-interactive.is-dragging {
+  cursor: grabbing;
+}
+
 @media (max-width: 639px) {
   .experience-gallery-scroll__stage {
     --gallery-card-h: min(62dvh, calc(100dvh - 78px - 9.5rem));
@@ -1230,7 +1248,7 @@ html[lang="ar"] button {
   border-radius: 14px;
   overflow: hidden;
   transform-origin: center center;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
   transition: none;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
 }

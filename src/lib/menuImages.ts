@@ -1,83 +1,74 @@
-/** Default dish photo when no specific match exists */
-export const DEFAULT_MENU_IMAGE = "/assets/gallery-table-spread.avif";
+const M = {
+  tajinePoulet: "/assets/menu/dishes/menu-tajine-poulet.avif",
+  tajineViandeFigues: "/assets/menu/dishes/menu-tajine-viande-figues.avif",
+  tajineKefta: "/assets/menu/dishes/menu-tajine-kefta.avif",
+  tajineCrevettes: "/assets/menu/dishes/menu-tajine-crevettes.avif",
+  tanjia: "/assets/menu/dishes/menu-tanjia.avif",
+  pastillaPoulet: "/assets/menu/dishes/menu-pastilla-poulet.avif",
+  pastillaMer: "/assets/menu/dishes/menu-pastilla-mer.avif",
+  seffa: "/assets/menu/dishes/menu-seffa.avif",
+  kourain: "/assets/menu/dishes/menu-kourain.avif",
+  rafissa: "/assets/menu/dishes/menu-rafissa.avif",
+  viandeAlWalima: "/assets/menu/dishes/menu-viande-al-walima.avif",
+  briouat: "/assets/menu/dishes/menu-briouat.avif",
+  frites: "/assets/menu/dishes/menu-frites.avif",
+  zaalouk: "/assets/menu/dishes/menu-zaalouk-tim1.avif",
+  carottes: "/assets/menu/dishes/menu-carottes.avif",
+  carottesConfites: "/assets/menu/dishes/menu-carottes-confites.avif",
+  saladeMarocaine: "/assets/menu/dishes/menu-salade-marocaine.avif",
+  saladeNicoise: "/assets/menu/dishes/menu-salade-nicoise.avif",
+  saladeAvocatCrevettes: "/assets/menu/dishes/menu-salade-avocat-crevettes.avif",
+  saladeAlWalima: "/assets/menu/dishes/menu-salade-al-walima.avif",
+  poissonCreme: "/assets/menu/dishes/menu-poisson-creme.avif",
+  theMarocain: "/assets/menu/dishes/menu-the-marocain.avif",
+  cafeAlWalima: "/assets/menu/dishes/menu-cafe-al-walima.avif",
+  tiramisu: "/assets/menu/dishes/menu-tiramisu.avif",
+  cheesecake: "/assets/menu/dishes/menu-cheesecake.avif",
+  cremeCaramel: "/assets/menu/dishes/menu-creme-caramel.avif",
+  tarteCitron: "/assets/menu/dishes/menu-tarte-citron.avif",
+} as const;
 
-/** Category pools — varied Moroccan imagery per section */
-const CATEGORY_IMAGE_POOLS: Record<string, readonly string[]> = {
-  salades: ["/assets/gallery-salad.avif", "/assets/gallery-beet-salad.avif", "/assets/gallery-platter.avif"],
-  entrees: ["/assets/gallery-tagine-bread.avif", "/assets/gallery-table-spread.avif", "/assets/gallery-ambiance.avif"],
-  "plats-marocains": [
-    "/assets/gallery-rfissa.avif",
-    "/assets/gallery-pastilla.avif",
-    "/assets/gallery-seffa.avif",
-    "/assets/gallery-platter.avif",
-  ],
-  couscous: ["/assets/couscous-royal.avif", "/assets/gallery-platter.avif"],
-  tajines: [
-    "/assets/tajine-olives.avif",
-    "/assets/gallery-tajine-prunes.avif",
-    "/assets/gallery-tajine-chicken.avif",
-    "/assets/gallery-tagine-bread.avif",
-  ],
-  pates: ["/assets/gallery-paella.avif", "/assets/gallery-platter.avif"],
-  grillades: ["/assets/brochettes.avif", "/assets/gallery-platter.avif"],
-  plats: ["/assets/gallery-platter.avif", "/assets/gallery-ambiance.avif", "/assets/gallery-table-spread.avif"],
-  pizzas: ["/assets/gallery-table-spread.avif", "/assets/gallery-platter.avif"],
-  "menu-enfant": ["/assets/gallery-table-spread.avif", "/assets/brochettes.avif"],
-  desserts: ["/assets/gallery-instagram.avif", "/assets/gallery-table-spread.avif"],
-  boissons: ["/assets/gallery-tea-pour.avif", "/assets/mint-tea.avif"],
-  "boissons-chaudes": ["/assets/mint-tea.avif", "/assets/gallery-tea-pour.avif"],
-  jus: ["/assets/gallery-tea-pour.avif", "/assets/gallery-beet-salad.avif"],
-};
-
-/** Best-match photo per plat (overrides category pool) */
+/**
+ * Only dishes with a real photo in WEB MENU / WEB MENU 2 get an image.
+ * No category pools, no stock placeholders, no sharing across unrelated plats.
+ */
 const MENU_ITEM_IMAGE_OVERRIDES: Record<string, string> = {
-  "salade-marocaine": "/assets/gallery-salad.avif",
-  "salade-al-walima": "/assets/gallery-beet-salad.avif",
-  "salade-chef": "/assets/gallery-platter.avif",
-  zaalouk: "/assets/gallery-tagine-bread.avif",
-  "briouat-fromage": "/assets/gallery-pastilla.avif",
-  "cigars-vegetariens": "/assets/gallery-tagine-bread.avif",
-  betteraves: "/assets/gallery-beet-salad.avif",
-  "couscous-royal": "/assets/couscous-royal.avif",
-  "couscous-poulet": "/assets/couscous-royal.avif",
-  "couscous-vegetarien": "/assets/gallery-platter.avif",
-  "tajine-poulet": "/assets/tajine-olives.avif",
-  "tajine-agneau-pruneaux": "/assets/gallery-tajine-prunes.avif",
-  "tajine-lotte": "/assets/gallery-tajine-chicken.avif",
-  "tajine-fruits-mer": "/assets/gallery-paella.avif",
-  "tajine-crevettes": "/assets/gallery-paella.avif",
-  "pastilla-poulet": "/assets/gallery-pastilla.avif",
-  "pastilla-mer": "/assets/gallery-pastilla.avif",
-  "rafissa": "/assets/gallery-rfissa.avif",
-  "seffa-nature": "/assets/gallery-seffa.avif",
-  "seffa-royal": "/assets/gallery-seffa.avif",
-  "mixte-al-walima": "/assets/brochettes.avif",
-  "brochettes-poulet": "/assets/brochettes.avif",
-  "brochettes-kefta": "/assets/brochettes.avif",
-  "brochettes-merguez": "/assets/brochettes.avif",
-  "the-marocain": "/assets/mint-tea.avif",
-  "the-al-walima": "/assets/mint-tea.avif",
-  "pates-mer": "/assets/gallery-paella.avif",
-  entrecote: "/assets/gallery-platter.avif",
-  "saint-pierre": "/assets/gallery-tajine-chicken.avif",
+  "salade-marocaine": M.saladeMarocaine,
+  "salade-nicoise": M.saladeNicoise,
+  "salade-avocat-crevettes": M.saladeAvocatCrevettes,
+  "salade-al-walima": M.saladeAlWalima,
+  zaalouk: M.zaalouk,
+  carottes: M.carottes,
+  "carottes-confites": M.carottesConfites,
+  "briouat-fromage": M.briouat,
+  frites: M.frites,
+  kourain: M.kourain,
+  "seffa-nature": M.seffa,
+  "seffa-royal": M.seffa,
+  rafissa: M.rafissa,
+  "viande-1-4": M.viandeAlWalima,
+  "viande-1-2": M.viandeAlWalima,
+  "viande-1kg": M.viandeAlWalima,
+  "pastilla-poulet": M.pastillaPoulet,
+  "pastilla-mer": M.pastillaMer,
+  "tajine-poulet": M.tajinePoulet,
+  "tajine-agneau-figues": M.tajineViandeFigues,
+  "tajine-boeuf-figues": M.tajineViandeFigues,
+  "tajine-kefta": M.tajineKefta,
+  "tajine-crevettes": M.tajineCrevettes,
+  "tanjia-1-4": M.tanjia,
+  "tanjia-1-2": M.tanjia,
+  "tanjia-1kg": M.tanjia,
+  "saint-pierre": M.poissonCreme,
+  tiramisu: M.tiramisu,
+  cheesecake: M.cheesecake,
+  "creme-caramel": M.cremeCaramel,
+  "tarte-citron": M.tarteCitron,
+  "the-marocain": M.theMarocain,
+  "the-al-walima": M.theMarocain,
+  "cafe-al-walima": M.cafeAlWalima,
 };
 
-function poolIndex(id: string, length: number): number {
-  let hash = 0;
-  for (let i = 0; i < id.length; i += 1) {
-    hash = (hash + id.charCodeAt(i) * (i + 1)) % 2147483647;
-  }
-  return hash % length;
-}
-
-export function resolveMenuItemImage(
-  itemId: string,
-  categoryId: string,
-  explicitImage?: string,
-): string {
-  if (explicitImage) return explicitImage;
-  if (MENU_ITEM_IMAGE_OVERRIDES[itemId]) return MENU_ITEM_IMAGE_OVERRIDES[itemId];
-  const pool = CATEGORY_IMAGE_POOLS[categoryId];
-  if (pool?.length) return pool[poolIndex(itemId, pool.length)]!;
-  return DEFAULT_MENU_IMAGE;
+export function resolveMenuItemImage(itemId: string): string | null {
+  return MENU_ITEM_IMAGE_OVERRIDES[itemId] ?? null;
 }

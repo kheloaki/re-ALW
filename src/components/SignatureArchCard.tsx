@@ -8,7 +8,7 @@ type SignatureArchCardProps = {
   title: string;
   description: string;
   price: string;
-  image: string;
+  image?: string;
   size: "large" | "medium";
   width?: number;
   height?: number;
@@ -52,7 +52,15 @@ export function SignatureArchCard({
   const { outer } = buildArchPaths(width, height);
   const shadowFilterId = `${clipId}-shadow`;
 
-  const imageBandPct = isStacked ? (isLarge ? 58 : 56) : isLarge ? 60 : 58;
+  const imageBandPct = image
+    ? isStacked
+      ? isLarge
+        ? 58
+        : 56
+      : isLarge
+        ? 60
+        : 58
+    : 0;
   const imageGradientHeight = isStacked ? "52%" : "62%";
   const imageFade = `linear-gradient(to top, ${CARD_BG} 0%, ${CARD_BG}f2 18%, ${CARD_BG}cc 38%, ${CARD_BG}66 58%, transparent 100%)`;
 
@@ -71,7 +79,21 @@ export function SignatureArchCard({
       ? "max-w-[400px] text-[18px]"
       : "max-w-[300px] text-[14px]";
   const priceClass = isStacked ? (isLarge ? "text-[24px]" : "text-[20px]") : isLarge ? "text-[38px]" : "text-[26px]";
-  const textPad = isStacked ? (isLarge ? "pt-2.5 px-3.5" : "pt-2 px-3") : isLarge ? "pt-5 px-5" : "pt-4 px-5";
+  const textPad = image
+    ? isStacked
+      ? isLarge
+        ? "pt-2.5 px-3.5"
+        : "pt-2 px-3"
+      : isLarge
+        ? "pt-5 px-5"
+        : "pt-4 px-5"
+    : isStacked
+      ? isLarge
+        ? "pt-10 px-3.5"
+        : "pt-8 px-3"
+      : isLarge
+        ? "pt-16 px-5"
+        : "pt-12 px-5";
 
   return (
     <article className="relative overflow-visible" style={{ width, height }}>
@@ -99,20 +121,25 @@ export function SignatureArchCard({
         className="absolute inset-0 flex flex-col"
         style={{ clipPath: `url(#${clipId})`, backgroundColor: CARD_BG }}
       >
-        <div className="relative shrink-0" style={{ height: `${imageBandPct}%` }}>
-          <Image
-            src={image}
-            alt={title.replace("\n", " ")}
-            fill
-            sizes="(max-width: 1024px) 90vw, 500px"
-            className="object-cover object-center"
-          />
-          <div
-            className="pointer-events-none absolute inset-x-0 bottom-0"
-            style={{ height: imageGradientHeight, background: imageFade }}
-          />
-        </div>
-        <div className={`flex flex-1 flex-col justify-start text-center ${textPad}`} style={{ backgroundColor: CARD_BG }}>
+        {image ? (
+          <div className="relative shrink-0" style={{ height: `${imageBandPct}%` }}>
+            <Image
+              src={image}
+              alt={title.replace("\n", " ")}
+              fill
+              sizes="(max-width: 1024px) 90vw, 500px"
+              className="object-cover object-center"
+            />
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0"
+              style={{ height: imageGradientHeight, background: imageFade }}
+            />
+          </div>
+        ) : null}
+        <div
+          className={`flex flex-1 flex-col justify-center text-center ${textPad}`}
+          style={{ backgroundColor: CARD_BG }}
+        >
           <h3 className={`font-display leading-[0.95] text-[#f0d78c] ${titleClass} whitespace-pre-line`}>{title}</h3>
           <p className={`mx-auto mt-1.5 text-[#d8ccb8] ${descClass} leading-snug`}>{description}</p>
           <p className={`mt-2 font-display font-semibold text-[#f1d28a] ${priceClass}`}>{price}</p>
