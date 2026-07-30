@@ -98,6 +98,7 @@ export function ReservationForm({ labels }: ReservationFormProps) {
     const payload = {
       name: String(data.get("name") ?? ""),
       phone,
+      email: String(data.get("email") ?? "").trim(),
       date: selectedDate,
       time: selectedTime,
       guests: Number(guests),
@@ -129,7 +130,7 @@ export function ReservationForm({ labels }: ReservationFormProps) {
   }
 
   const errorMessage =
-    errorCode === "validation"
+    errorCode === "validation" || errorCode === "invalid_email"
       ? f.errorValidation
       : errorCode === "not_configured"
         ? f.errorNotConfigured
@@ -173,6 +174,20 @@ export function ReservationForm({ labels }: ReservationFormProps) {
             disabled={disabled}
           />
         </div>
+
+        <label className="reservation-field col-span-full">
+          <FieldLabel>{labels.email}</FieldLabel>
+          <input
+            className={`${INPUT_CLASS} h-11 sm:h-12 lg:h-[50px]`}
+            type="email"
+            name="email"
+            placeholder={labels.emailPlaceholder}
+            autoComplete="email"
+            inputMode="email"
+            maxLength={160}
+            disabled={disabled}
+          />
+        </label>
 
         <label className="reservation-field col-span-full sm:col-span-1">
           <FieldLabel>{labels.guests}</FieldLabel>

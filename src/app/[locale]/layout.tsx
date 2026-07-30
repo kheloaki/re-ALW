@@ -2,12 +2,14 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { Amiri, Cormorant_Garamond, Dancing_Script, Inter, Noto_Naskh_Arabic } from "next/font/google";
 import { notFound } from "next/navigation";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { LocaleProvider } from "@/components/LocaleProvider";
 import { StickyActionButtons } from "@/components/StickyActionButtons";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { defaultLocale, isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { getGoogleAnalyticsMeasurementId } from "@/lib/googleAnalytics";
 import { getPlaceLocalSeo } from "@/lib/googlePlaceLocal";
 import { getGlobalSchemas } from "@/lib/seo/schema";
 import { getSiteUrl } from "@/lib/site";
@@ -74,6 +76,7 @@ export default async function LocaleLayout({
   const locale = raw as Locale;
   const dict = await getDictionary(locale);
   const placeLocal = getPlaceLocalSeo(locale);
+  const gaMeasurementId = getGoogleAnalyticsMeasurementId();
   const dir = locale === "ar" ? "rtl" : "ltr";
   const fontVars =
     locale === "ar"
@@ -99,6 +102,7 @@ export default async function LocaleLayout({
           <StickyActionButtons />
         </LocaleProvider>
         <Analytics />
+        {gaMeasurementId ? <GoogleAnalytics measurementId={gaMeasurementId} /> : null}
       </body>
     </html>
   );

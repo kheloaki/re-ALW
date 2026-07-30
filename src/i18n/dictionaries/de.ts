@@ -109,6 +109,8 @@ const de: Dictionary = {
     namePlaceholder: "Ihr vollständiger Name",
     phone: "Telefon",
     phonePlaceholder: "06 XX XX XX XX",
+    email: "E-Mail (optional)",
+    emailPlaceholder: "ihre@email.com",
     countrySearch: "Land oder Vorwahl suchen",
     date: "Datum",
     today: "Heute",

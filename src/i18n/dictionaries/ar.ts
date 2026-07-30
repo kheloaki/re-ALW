@@ -97,6 +97,8 @@ const ar: Dictionary = {
     namePlaceholder: "الاسم الكامل",
     phone: "الهاتف",
     phonePlaceholder: "06 XX XX XX XX",
+    email: "البريد الإلكتروني (اختياري)",
+    emailPlaceholder: "you@email.com",
     countrySearch: "ابحث عن دولة أو رمز",
     date: "التاريخ",
     today: "اليوم",

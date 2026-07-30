@@ -124,6 +124,8 @@ const es: Dictionary = {
     namePlaceholder: "Su nombre completo",
     phone: "Teléfono",
     phonePlaceholder: "06 XX XX XX XX",
+    email: "Correo (opcional)",
+    emailPlaceholder: "tu@email.com",
     countrySearch: "Buscar país o prefijo",
     date: "Fecha",
     today: "Hoy",

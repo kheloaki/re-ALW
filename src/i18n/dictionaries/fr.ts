@@ -113,6 +113,8 @@ const fr: Dictionary = {
     namePlaceholder: "Votre nom complet",
     phone: "Téléphone",
     phonePlaceholder: "06 XX XX XX XX",
+    email: "E-mail (optionnel)",
+    emailPlaceholder: "votre@email.com",
     countrySearch: "Rechercher un pays ou indicatif",
     date: "Date",
     today: "Aujourd'hui",

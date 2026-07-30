@@ -112,6 +112,8 @@ const en: Dictionary = {
     namePlaceholder: "Your full name",
     phone: "Phone",
     phonePlaceholder: "06 XX XX XX XX",
+    email: "Email (optional)",
+    emailPlaceholder: "you@email.com",
     countrySearch: "Search country or code",
     date: "Date",
     today: "Today",

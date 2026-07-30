@@ -8,6 +8,7 @@ import { VENUE } from "@/lib/venue";
 export type ReservationPayload = {
   name: string;
   phone: string;
+  email: string;
   date: string;
   time: string;
   guests: number;
@@ -16,6 +17,7 @@ export type ReservationPayload = {
 };
 
 const PHONE_RE = /^\+[\d\s().-]{9,24}$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function isValidPhone(phone: string): boolean {
   return PHONE_RE.test(phone) && isValidSubmittedPhone(phone);
@@ -64,6 +66,11 @@ export function parseReservationBody(
   const time = asTrimmedString(raw.time, 8);
   const specialRequests = asTrimmedString(raw.specialRequests ?? "", 2000) ?? "";
 
+  const emailRaw = typeof raw.email === "string" ? raw.email.trim().toLowerCase() : "";
+  if (emailRaw && (emailRaw.length > 160 || !EMAIL_RE.test(emailRaw))) {
+    return { ok: false, message: "invalid_email" };
+  }
+
   if (!name || name.length < 2) return { ok: false, message: "invalid_name" };
   if (!phone || !isValidPhone(phone)) return { ok: false, message: "invalid_phone" };
   if (!date || !isValidDateString(date) || !isNotPastDate(date)) {
@@ -84,6 +91,7 @@ export function parseReservationBody(
     data: {
       name,
       phone,
+      email: emailRaw,
       date,
       time,
       guests: guestsNum,
@@ -123,6 +131,7 @@ function buildEmailContent(data: ReservationPayload) {
   const rows: { label: string; value: string }[] = [
     { label: "Nom", value: data.name },
     { label: "Téléphone", value: data.phone },
+    { label: "E-mail", value: data.email || "—" },
     { label: "Date", value: dateLabel },
     { label: "Heure", value: data.time },
     { label: "Convives", value: String(data.guests) },
@@ -159,8 +168,6 @@ function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 /** Comma- or semicolon-separated list in RESERVATION_OWNER_EMAIL. */
 export function parseOwnerEmails(raw: string | undefined): string[] {
   if (!raw?.trim()) return [];
@@ -187,6 +194,7 @@ export async function sendReservationEmail(data: ReservationPayload): Promise<vo
   const { error } = await resend.emails.send({
     from,
     to,
+    ...(data.email ? { replyTo: data.email } : {}),
     subject: `[Al Walima] ${subject}`,
     html,
     text,

@@ -109,6 +109,8 @@ const pl: Dictionary = {
     namePlaceholder: "Imię i nazwisko",
     phone: "Telefon",
     phonePlaceholder: "06 XX XX XX XX",
+    email: "E-mail (opcjonalnie)",
+    emailPlaceholder: "twoj@email.com",
     countrySearch: "Szukaj kraju lub numeru",
     date: "Data",
     today: "Dziś",

@@ -91,6 +91,8 @@ export type Dictionary = {
     namePlaceholder: string;
     phone: string;
     phonePlaceholder: string;
+    email: string;
+    emailPlaceholder: string;
     countrySearch: string;
     date: string;
     today: string;
