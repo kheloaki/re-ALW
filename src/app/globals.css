@@ -1173,6 +1173,43 @@ html[lang="ar"] button {
   max-height: none;
 }
 
+/* Restaurant Guru award badge — official widget is fixed at 180×130; scale it up */
+.restaurant-guru-award__badge-scale {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(180px * 1.5);
+  height: calc(130px * 1.5);
+  margin-block: 0.5rem;
+}
+
+.restaurant-guru-award__badge-scale #b-gold {
+  transform: scale(1.5);
+  transform-origin: center center;
+}
+
+@media (min-width: 640px) {
+  .restaurant-guru-award__badge-scale {
+    width: calc(180px * 1.75);
+    height: calc(130px * 1.75);
+  }
+
+  .restaurant-guru-award__badge-scale #b-gold {
+    transform: scale(1.75);
+  }
+}
+
+@media (min-width: 1024px) {
+  .restaurant-guru-award__badge-scale {
+    width: calc(180px * 2);
+    height: calc(130px * 2);
+  }
+
+  .restaurant-guru-award__badge-scale #b-gold {
+    transform: scale(2);
+  }
+}
+
 /* Experience gallery — sticky panel in one track; Reels scrolls in below with no unpin jump */
 .experience-gallery-scroll__flow-panel {
   min-height: calc(100dvh - 78px - 120px);

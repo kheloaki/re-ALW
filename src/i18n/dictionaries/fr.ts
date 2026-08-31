@@ -79,6 +79,14 @@ const fr: Dictionary = {
       "Le contenu des avis est fourni par les utilisateurs et peut être mis à jour sur Google Maps.",
     reviewBy: "Avis Google de",
   },
+  award: {
+    eyebrow: "Distinction 2026",
+    title: "Récompense Restaurant Guru",
+    subtitle:
+      "Al Walima est honoré du prix Best Seffa 2026 — une reconnaissance de notre cuisine marocaine authentique à Agadir.",
+    caption: "Un hommage à notre seffa, préparée avec passion et partagée autour de la table.",
+    cta: "Voir le profil Restaurant Guru",
+  },
   instagramReels: {
     title: "Nos Reels Instagram",
     subtitle: "Coulisses, plats et ambiance du restaurant Al Walima à Agadir.",

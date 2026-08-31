@@ -63,6 +63,14 @@ const ar: Dictionary = {
     disclaimer: "محتوى التقييمات من المستخدمين وقد يُحدَّث على خرائط Google.",
     reviewBy: "تقييم Google من",
   },
+  award: {
+    eyebrow: "تمييز 2026",
+    title: "جائزة Restaurant Guru",
+    subtitle:
+      "حازت الوليمة على جائزة أفضل سفة لعام 2026 — اعتراف بمطبخنا المغربي الأصيل في أكادير.",
+    caption: "تكريم لسفتنا، تُحضَّر بشغف وتُقدَّم حول المائدة.",
+    cta: "عرض ملف Restaurant Guru",
+  },
   instagramReels: {
     title: "ريلز إنستغرام",
     subtitle: "كواليس، أطباق وأجواء مطعم الوليمة في أكادير.",

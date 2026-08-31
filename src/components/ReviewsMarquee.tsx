@@ -59,7 +59,7 @@ export async function ReviewsMarquee({ locale }: { locale: Locale }) {
   return (
     <section
       id="reviews"
-      className="border-y border-[#d6ad63]/20 bg-[#181512] py-10 sm:py-12"
+      className="border-b border-[#d6ad63]/20 bg-[#181512] py-10 sm:py-12"
       aria-labelledby="reviews-marquee-heading"
     >
       <div className="section-shell px-4 sm:px-6 lg:px-10">

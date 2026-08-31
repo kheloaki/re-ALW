@@ -8,6 +8,7 @@ import { MoroccanDivider } from "@/components/MoroccanDivider";
 import { Navbar } from "@/components/Navbar";
 import { ReservationSection } from "@/components/ReservationSection";
 import { RestaurantMapSection } from "@/components/RestaurantMapSection";
+import { RestaurantGuruAward } from "@/components/RestaurantGuruAward";
 import { ReviewsMarquee } from "@/components/ReviewsMarquee";
 import { SignatureDishesSection } from "@/components/SignatureDishesSection";
 import { WelcomeSection } from "@/components/WelcomeSection";
@@ -56,6 +57,7 @@ export default async function HomePage({ params }: PageProps) {
           <Hero />
           <MoroccanDivider />
           <WelcomeSection />
+          <RestaurantGuruAward />
           <ReviewsMarquee locale={locale} />
           <SignatureDishesSection />
           <div className="gallery-reservation-footer-height">

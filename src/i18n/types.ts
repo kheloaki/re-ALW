@@ -57,6 +57,13 @@ export type Dictionary = {
     disclaimer: string;
     reviewBy: string;
   };
+  award: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    caption: string;
+    cta: string;
+  };
   instagramReels: {
     title: string;
     subtitle: string;
